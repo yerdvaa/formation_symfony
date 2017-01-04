@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+        <meta charset="UTF-8" />
+        <meta name="description" content="">
+        <title>Mon super site | {% block metatitle %}bloc mère {% endblock %}</title>
+
+    {% endblock %}
+</head>
+<body>
+    {% block titre %}
+        <h1>Ceci est le titre de ma page mère</h1>
+    {% endblock %}
+
+    {% block nav %}
+            <h2>menu nav</h2>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,13 @@
+{% extends 'default_old/bloc_mere.html.twig' %}
+
+{% block head %}
+    <meta name="description" content="{% block metadescription %}la description de base de mon site{% endblock %}">
+   <title>{% block metatitle %}bloc fille{% endblock %}</title>
+
+{% endblock %}
+
+{% block titre %}
+    {{ parent() }}
+    <h2>Un super titre</h2>
+{% endblock %}
+

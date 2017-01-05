@@ -26,32 +26,46 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for product in products %}
-                    <tr>
-                        <td>{{ product.id }}</td>
-                        <td>{{ product.title }}</td>
-                        <td>{{ product.description }}</td>
-                        <td>{{ product.date_created | date("d/m/y") }}</td>
-                        <td>
-                            <div class="btn-group">
-                                <a href=" {{ path("show_product",{id:product.id}) }}">
-                                    <button type="button" class="btn btn-info btn-xs">
-                                    Visualiser</button></a>
-                                <a href=""><button type="button" class="btn btn-warning btn-xs">Editer</button></a>
-                                <a href=""><button type="button" class="btn btn-danger btn-xs">Supprimer</button></a>
-                            </div>
-                        </td>
-                    </tr>
+
+                    {% for categorie in categories %}
+                        <tr>
+                            <td>{{ categorie.id }}</td>
+                            <td>{{ categorie.title }}
+                            (
+                                    {% if categorie.active == true %}
+                                        Active
+                                    {% else %}
+                                        Non-active
+                                    {% endif %}
+
+                             )
+                            </td>
+                            <td>{{ categorie.description | raw |nl2br}}
+                                ({{ categorie.description | length }})
+                            </td>
+                            <td>{{ categorie.date_created | date("d/m/y") }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href=" {{ path("show_categories",{id:categorie.id}) }}">
+                                        <button type="button" class="btn btn-info btn-xs">
+                                            Visualiser</button></a>
+                                    <a href=""><button type="button" class="btn btn-warning btn-xs">Editer</button></a>
+                                    <a href=""><button type="button" class="btn btn-danger btn-xs">Supprimer</button></a>
+                                </div>
+                            </td>
+                        </tr>
                     {% endfor %}
                     </tbody>
 
                 </table>
+                <p><strong>Il y a {{ categories | length }} catégorie(s).</strong></p>
+
             </div>
             <!-- /.box-body -->
         </div>
     </div>
 
-<!-- /.box -->
+    <!-- /.box -->
 {% endblock %}
 
 {% block javascript %}

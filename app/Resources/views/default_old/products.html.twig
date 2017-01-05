@@ -67,13 +67,15 @@
 
         <h1>Question 7</h1>
         {% set total = 0 %}
+
         {% for product in products %}
 
         {% set total = total + product.prix %}
 
         {% endfor %}
 
-        Le total est : {{ total }}
+        Le prix total est : {{ total }} €.
+
 
         <h1>Question 8</h1>
         <ul>

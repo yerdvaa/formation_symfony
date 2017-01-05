@@ -30,6 +30,9 @@
                     <tr>
                         <td>{{ product.id }}</td>
                         <td>{{ product.title }}</td>
+                        {% if minPrice == product.prix %}
+                            <style> td {background-color: #00e765;}</style>
+                        {% endif %}
                         <td>{{ product.description }}</td>
                         <td>{{ product.date_created | date("d/m/y") }}</td>
                         <td>
@@ -47,6 +50,25 @@
 
                 </table>
             </div>
+
+            {% set total = 0 %}
+            {% set minPrice = 10000 %}
+                {% for product in products %}
+                    {% set total = total + product.prix %}
+
+                        {% if product.prix < minPrice %}
+                        {% set minPrice = product.prix %}
+                        {% endif %}
+                {% endfor %}
+
+
+                <p>Le prix minimum est: <strong>{{ minPrice }}.</p>
+
+
+
+            {% set total = total / products|length %}
+            <p>Le prix moyen est : {{ total }} €.</p>
+
             <!-- /.box-body -->
         </div>
     </div>

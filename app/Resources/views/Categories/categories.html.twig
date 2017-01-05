@@ -40,7 +40,7 @@
 
                              )
                             </td>
-                            <td>{{ categorie.description | raw |nl2br}}
+                            <td>{{ categorie.description | raw |nl2br | slice(0,50)}}
                                 ({{ categorie.description | length }})
                             </td>
                             <td>{{ categorie.date_created | date("d/m/y") }}</td>

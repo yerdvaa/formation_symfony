@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Envoi mail</title>
+</head>
+<body>
+<h1>Feedback</h1>
+<p>Page / url : {{ data.page }}</p>
+<p>Type d'erreur {{ data.bugStatut }}</p>
+<p>Nom: {{ data.firstname~ " "~ data.lastname }}</p>
+<p>Prénom: {{ data.email }}</p>
+<p>Votre message: {{ data.content }}</p>
+<p>Date de l'anomalie: {{ data.datebug|date}}</p>
+
+</body>
+
+</html>

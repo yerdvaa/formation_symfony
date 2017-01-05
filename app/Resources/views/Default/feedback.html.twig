@@ -1,0 +1,73 @@
+{% extends "layout.html.twig" %}
+{% block content %}
+
+    {# Affichage du message de success	#}
+    <strong>
+
+        {% for flash_message in app.session.flashBag.get('success') %}
+            <div class="BlueLigth">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+    </strong>
+
+    <div class="box box-info">
+        <div class="box-body">
+
+            {{ form_start(formFeedback) }}
+            <div>
+                {{ form_errors(formFeedback.page) }}
+                {{ form_label(formFeedback.page,  "Page / URL", {label_attr: {class: "page-url-class"} } ) }}
+                {{ form_widget(formFeedback.page, {attr: { class: "form-control"} } ) }}
+            </div>
+
+            <div>
+                {{ form_errors(formFeedback.bugStatut) }}
+                {{ form_label(formFeedback.bugStatut,  "Bug / Statut", {choice_label: {class: "bug-class"} } ) }}<br>
+                {{ form_widget(formFeedback.bugStatut, {choice_attr: { class: "form-control"} } ) }}
+            </div>
+
+            <div>
+                {{ form_errors(formFeedback.firstname) }}
+                {{ form_label(formFeedback.firstname,  "Votre prénom", {label_attr: {class: "le-prenom-de-votre-class"} } ) }}
+                {{ form_widget(formFeedback.firstname, {attr: { class: "form-control"} } ) }}
+            </div>
+
+            <div>
+                {{ form_errors(formFeedback.lastname) }}
+                {{ form_label(formFeedback.lastname, "Votre nom", {label_attr: {class: "le-nom-de-votre-class"} } ) }}
+                {{ form_widget(formFeedback.lastname, {attr: {class: "form-control"} } ) }}
+            </div>
+
+            <div>
+                {{ form_errors(formFeedback.email) }}
+                {{ form_label(formFeedback.email, null) }}
+                {{ form_widget(formFeedback.email,
+                {attr: {placeholder: 'email', class: "form-control"},id: "votre-super-id"})
+                }}
+            </div>
+
+            <div class="input-group date">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                {{ form_errors(formFeedback.datebug) }}
+                {{ form_label(formFeedback.datebug, "Date de l'anomalie") }}<br>
+                {{ form_widget(formFeedback.datebug, {attr: {class: "datepicker form-control"} }) }}
+
+
+            </div>
+
+
+            <div>
+                {{ form_errors(formFeedback.content) }}
+                {{ form_label(formFeedback.content, "Votre message",{label_attr: {class: "le-nom-de-votre-class"} }) }}<br>
+                {{ form_widget(formFeedback.content, {attr: {placeholder: "Votre message", class: "form-control"} }) }}
+            </div>
+
+            <button>Envoyer</button>
+
+            {{ form_end(formFeedback) }}
+        </div>
+    </div>
+{% endblock %}

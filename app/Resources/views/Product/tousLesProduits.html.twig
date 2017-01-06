@@ -47,7 +47,7 @@
                                 <a href=" {{ path("show_product",{id:product.id}) }}">
                                     <button type="button" class="btn btn-info btn-xs">
                                     Visualiser</button></a>
-                                <a href=""><button type="button" class="btn btn-warning btn-xs">Editer</button></a>
+                                <a href="{{ path("edit_product", {id:product.id}) }}"><button type="button" class="btn btn-warning btn-xs">Editer</button></a>
                                 <a href=""><button type="button" class="btn btn-danger btn-xs">Supprimer</button></a>
                             </div>
                         </td>

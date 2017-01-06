@@ -160,13 +160,13 @@ class ProductController extends Controller
      * @Route("/products/edit/{id}", name="edit_product", requirements={"id" = "\d+"})
      */
 
-    /*public function editAction($id)
+    public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository("adminBundle:Product")
+        $product = $em->getRepository("adminBundle:Product")
             ->find($id);
 
-        formProduct = $this->createForm(ProductType::class, $product);
+        $formProduct = $this->createForm(ProductType::class, $product);
         $formProduct->handleRequest($request);
 
         if ($formProduct->isSubmitted() && $formProduct->isValid())
@@ -184,7 +184,7 @@ class ProductController extends Controller
 
         }
 
-        return $this->render('Product/edit.html.twig', ['formProduct' => $formProduct->createView()]);
-    }*/
+        return $this->render('Product/edit.html.twig', ['formProduct' => $formProduct->createView(), "product" => $product,]);
+    }
 
 }

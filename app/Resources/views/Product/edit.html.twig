@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block content %}
-    {%  block content %}
 
-        <p>Nom du produit : <strong>{{ products.title }}</strong></p>
-        <p>Description : {{ products.description }}</p>
-        <p>Prix : {{ products.price }} €</p>
+
+        <p>Nom du produit : <strong>{{ product.title }}</strong></p>
+        <p>Description : {{ product.description }}</p>
+        <p>Prix : {{ product.price }} €</p>
         <!--<p>Date de création : {#{{ produit.date_created | date("d/m/y") }}#} </p>-->
-        <p>Quantité: {{ products.quantity }}</p>
+        <p>Quantité: {{ product.quantity }}</p>
 
 
 
-        <a href="{{ path("product") }}"><button type="button" class="btn bg-purple btn-xs">Retour à la liste des produits</button></a>
+        <a href="{{ path("edit_product", {id:product.id}) }}"><button type="button" class="btn bg-purple btn-xs">Modifier</button></a>
     {% endblock %}

@@ -3,12 +3,18 @@
     {{ parent() }}
 {% endblock %}
 
+{% block ariane %}
+    <li class="active">Vue produit</li>
+{% endblock %}
+
+
 {%  block content %}
 
-            <p>Nom du produit : <strong>{{ produit.title }}</strong></p>
-            <p>Description : {{ produit.description }}</p>
-            <p>Prix : {{ produit.prix }} €</p>
-            <p>Date de création : {{ produit.date_created | date("d/m/y") }} </p>
+            <p>Nom du produit : <strong>{{ products.title }}</strong></p>
+            <p>Description : {{ products.description }}</p>
+            <p>Prix : {{ products.price }} €</p>
+            <!--<p>Date de création : {#{{ produit.date_created | date("d/m/y") }}#} </p>-->
+            <p>Quantité: {{ products.quantity }}</p>
 
 
 

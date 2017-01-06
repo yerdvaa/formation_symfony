@@ -1,11 +1,16 @@
 {% extends "layout.html.twig" %}
+{% block ariane %}
+    <li class="active">Feedback</li>
+{% endblock %}
+
+
 {% block content %}
 
     {# Affichage du message de success	#}
     <strong>
 
         {% for flash_message in app.session.flashBag.get('success') %}
-            <div class="BlueLigth">
+            <div class="alert alert-info">
                 {{ flash_message }}
             </div>
         {% endfor %}
@@ -13,8 +18,14 @@
 
     <div class="box box-info">
         <div class="box-body">
+            {#{% form_theme   formFeedback   _self %}
 
-            {{ form_start(formFeedback) }}
+            {%- block form_label -%}
+                <strong>Modification de l'affichage d'un label</strong>
+            {%- endblock form_label -%}
+            #}
+
+            {{ form_start(formFeedback, {attr:{ novalidate:"novalidate"}}) }}
             <div>
                 {{ form_errors(formFeedback.page) }}
                 {{ form_label(formFeedback.page,  "Page / URL", {label_attr: {class: "page-url-class"} } ) }}
@@ -43,16 +54,14 @@
                 {{ form_errors(formFeedback.email) }}
                 {{ form_label(formFeedback.email, null) }}
                 {{ form_widget(formFeedback.email,
-                {attr: {placeholder: 'email', class: "form-control"},id: "votre-super-id"})
+                {attr: {placeholder: 'email', class: "form-control mail"},id: "votre-super-id"})
                 }}
             </div>
 
-            <div class="input-group date">
-                    <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                    </div>
-                {{ form_errors(formFeedback.datebug) }}
+
+            <div>
                 {{ form_label(formFeedback.datebug, "Date de l'anomalie") }}<br>
+                {{ form_errors(formFeedback.datebug) }}
                 {{ form_widget(formFeedback.datebug, {attr: {class: "datepicker form-control"} }) }}
 
 
@@ -65,7 +74,9 @@
                 {{ form_widget(formFeedback.content, {attr: {placeholder: "Votre message", class: "form-control"} }) }}
             </div>
 
-            <button>Envoyer</button>
+            <div class="box-footer">
+            <button class="btn btn-info">Envoyer</button>
+            </div>
 
             {{ form_end(formFeedback) }}
         </div>

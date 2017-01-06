@@ -16,7 +16,7 @@ parameters:
     mailer_password:   ~
 
     # Rajouter le mailer_port
-        mailer_port: ~
+    mailer_port: 2525
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

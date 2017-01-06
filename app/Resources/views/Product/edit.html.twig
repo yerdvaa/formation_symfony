@@ -1,0 +1,19 @@
+{% extends "layout.html.twig" %}
+
+{% block ariane %}
+    <li class="active">Modification de produits</li>
+{% endblock %}
+
+{% block content %}
+    {%  block content %}
+
+        <p>Nom du produit : <strong>{{ products.title }}</strong></p>
+        <p>Description : {{ products.description }}</p>
+        <p>Prix : {{ products.price }} €</p>
+        <!--<p>Date de création : {#{{ produit.date_created | date("d/m/y") }}#} </p>-->
+        <p>Quantité: {{ products.quantity }}</p>
+
+
+
+        <a href="{{ path("product") }}"><button type="button" class="btn bg-purple btn-xs">Retour à la liste des produits</button></a>
+    {% endblock %}

@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class DefaultController extends Controller
 {
@@ -32,10 +34,36 @@ class DefaultController extends Controller
     public function contactAction(Request $request)
     {
         $formContact = $this->createFormBuilder()
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('content', TextareaType::class)
+            ->add('firstname', TextType::class, [
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer votre prénom']),
+                        new Assert\Length(['min' => 2, 'minMessage' => 'Votre prénom doit avoir au moins deux caractères'])
+                    ]
+            ])
+            ->add('lastname', TextType::class, [
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer votre nom'])
+                    ]
+            ])
+            ->add('email', EmailType::class, [
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer un email']),
+                        new Assert\Email([
+                            'message' => 'Votre email "{{ value }}" est faux'
+                        ])
+                    ]
+            ])
+            ->add('content', TextareaType::class, [
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer un commentaire']),
+                        new Assert\Length(['max' => 150, 'maxMessage' => 'Votre message est trop long, 150 caractères maximum!'])
+                    ]
+            ])
+            ->add('captcha', CaptchaType::class)
             ->getForm();
 
         $formContact->handleRequest($request);
@@ -99,29 +127,81 @@ class DefaultController extends Controller
 
     public function feedbackAction(Request $request)
     {
+        $choicesBug = [
+            'technique' => 'technique',
+            'marketing' => 'marketing',
+            'design'   => 'design',
+            'autre' => 'autre'];
+
+
         $formFeedback = $this->createFormBuilder()
 
-            ->add('page', UrlType::class )
+
+            ->add('page', TextType::class, [
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer une page / URL']),
+                        new Assert\Url(['message' => 'Votre page / URL "{{ value }}" n\'est pas valide'])
+                    ]
+            ])
             ->add('bugStatut', ChoiceType::class, array(
                 'choices' => array(
-                    'technique' => 'technique',
-                    'marketing' => 'marketing',
-                    'design'   => 'design',
-                    'autre' => 'autre'
-                )))
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('email', EmailType::class)
+                    'technique',
+                    'marketing',
+                    'design',
+                    'autre'
+                )), [
+                    'constraints' =>
+                        [
+                            new Assert\NotBlank(['message' => 'Veuillez sélectionner une catégorie']),
+                            new Assert\Choice(['choices' => $choicesBug,'message' => 'Veuillez sélectionner une catégorie'])
+                        ]
+                ]
+            )
+            ->add('firstname', TextType::class, [
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer votre prénom']),
+                        new Assert\Length(['min' => 2, 'minMessage' => 'Votre prénom doit avoir au moins deux caractères'])
+                    ]
+            ])
+            ->add('lastname', TextType::class, [
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer votre nom'])
+                    ]
+            ])
+            ->add('email', EmailType::class, [
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer un email']),
+                        new Assert\Email([
+                            'message' => 'Votre email "{{ value }}" est faux'
+                        ])
+                    ]
+            ])
             ->add('datebug', DateType::class, [
                 'widget' => 'single_text',
                 'html5' => false,
                 'format' => 'd/MMM/y',
                 'data'  => new \DateTime(),
                 'years' => range(date('Y')-10, date('Y')+10),
-                ]
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez sélectionner une date']),
+                        new Assert\Date(['message' => 'Date invalide'])
+                    ]
+            ])
 
-            )
-            ->add('content', TextareaType::class)
+            ->add('captcha', CaptchaType::class)
+            ->add('content', TextareaType::class, [
+                'constraints' =>
+                    [
+                        new Assert\NotBlank(['message' => 'Veuillez rentrer un commentaire']),
+                        new Assert\Length(['max' => 150, 'maxMessage' => 'Votre message est trop long, 150 caractères maximum!', 'min' => 10, 'minMessage' => 'Votre message doit contenir au moins 10 caractères']),
+
+                    ]
+            ])
             ->getForm();
 
         $formFeedback->handleRequest($request);
@@ -134,6 +214,7 @@ class DefaultController extends Controller
             $message = \Swift_Message::newInstance()
                 ->setSubject('Formulaire de feedback')
                 ->setFrom($data['email'])
+                ->addCc('admin@admin.com')
                 ->setTo($this->getParameter('mailer_admin'))
                 ->setBody(
                     $this->renderView('emails/formulaire-feedback.html.twig', [

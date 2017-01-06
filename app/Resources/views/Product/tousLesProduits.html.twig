@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
 {% endblock %}
 
+{% block ariane %}
+    <li class="active">Tous les produits</li>
+{% endblock %}
+
+
 {%  block content %}
     <div class="row">
         <div class="col-md-12">
@@ -21,7 +26,9 @@
                         <th>Id</th>
                         <th>Title</th>
                         <th>Description</th>
-                        <th>Date</th>
+                        <th>Prix</th>
+                        <th>Quantité</th>
+                        <!--<th>Date</th>-->
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -30,11 +37,11 @@
                     <tr>
                         <td>{{ product.id }}</td>
                         <td>{{ product.title }}</td>
-                        {% if minPrice == product.prix %}
-                            <style> td {background-color: #00e765;}</style>
-                        {% endif %}
+
                         <td>{{ product.description }}</td>
-                        <td>{{ product.date_created | date("d/m/y") }}</td>
+                        <td>{{ product.price }} €</td>
+                        <td>{{ product.quantity}}</td>
+                        <!--<td>{#{{ product.date_created | date("d/m/y") }}#}</td>-->
                         <td>
                             <div class="btn-group">
                                 <a href=" {{ path("show_product",{id:product.id}) }}">
@@ -54,10 +61,10 @@
             {% set total = 0 %}
             {% set minPrice = 10000 %}
                 {% for product in products %}
-                    {% set total = total + product.prix %}
+                    {% set total = total + product.price %}
 
-                        {% if product.prix < minPrice %}
-                        {% set minPrice = product.prix %}
+                        {% if product.price < minPrice %}
+                        {% set minPrice = product.price %}
                         {% endif %}
                 {% endfor %}
 

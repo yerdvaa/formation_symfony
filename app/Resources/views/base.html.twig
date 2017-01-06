@@ -71,7 +71,11 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset("dist/js/demo.js") }}"></script>
     <script>
-        $('.datepicker').datepicker();
+        $('.datepicker').datepicker(
+                {
+                    format:'dd-mm-yyyy'
+                }
+        );
     </script>
 
 {% endblock %}

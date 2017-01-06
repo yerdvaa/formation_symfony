@@ -1,11 +1,16 @@
 {% extends "layout.html.twig" %}
+
+{% block ariane %}
+    <li class="active">Contact</li>
+{% endblock %}
+
 {% block content %}
 
     {# Affichage du message de success	#}
     <strong>
 
         {% for flash_message in app.session.flashBag.get('success') %}
-            <div class="BlueLigth">
+            <div class="alert alert-info">
                 {{ flash_message }}
             </div>
         {% endfor %}
@@ -15,7 +20,7 @@
         <div class="box-body">
 
 
-        {{ form_start(formContact) }}
+        {{ form_start(formContact, {attr:{ novalidate:"novalidate"}} )}}
 
         <div>
             {# affiche les erreurs du champ firstname #}
@@ -59,9 +64,11 @@
             {{ form_widget(formContact.content, {attr: {placeholder: "Votre message", class: "form-control"} }) }}
         </div>
 
-        <button>Envoyer</button>
+            <div class="box-footer">
+                <button class="btn btn-info">Envoyer</button>
+            </div>
 
-        {{ form_end(formContact) }}
+            {{ form_end(formContact) }}
     </div>
     </div>
 {% endblock %}

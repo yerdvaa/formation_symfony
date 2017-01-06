@@ -3,6 +3,11 @@
     {{ parent() }}
 {% endblock %}
 
+{% block ariane %}
+    <li class="active">Catégorie</li>
+{% endblock %}
+
+
 {%  block content %}
 
     <p>Nom de la catégorie : <strong>{{ cat.title }}</strong></p>

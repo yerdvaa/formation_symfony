@@ -2,8 +2,12 @@
 
 namespace adminBundle\Controller;
 
+
+use adminBundle\Entity\Product;
+use adminBundle\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProductController extends Controller
 {
@@ -12,7 +16,8 @@ class ProductController extends Controller
      */
     public function productsAction()
     {
-        $products = [
+        /* avant la création de la bdd
+         * $products = [
             [
                 "id" => 1,
                 "title" => "Mon premier produit",
@@ -41,7 +46,12 @@ class ProductController extends Controller
                 "date_created" => new \DateTime('now'),
                 "prix" => 410
             ],
-        ];
+        ];*/
+
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository("adminBundle:Product")
+            ->findAll();
+        //die(dump($products));
 
         return $this->render('Product/tousLesProduits.html.twig',
             [
@@ -56,7 +66,9 @@ class ProductController extends Controller
     public function showAction($id)
     {
         //die (dump($id));
-        $products = [
+        /*
+         * Avant la création de la bdd
+         $products = [
             [
                 "id" => 1,
                 "title" => "Mon premier produit",
@@ -96,18 +108,83 @@ class ProductController extends Controller
             {
                 $produit= $p;
             }
-        }
+        }*/
 
-        if (empty($produit)) {
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository("adminBundle:Product")
+            ->find($id);
+
+        if (empty($products)) {
             throw $this->createNotFoundException("Le produit n'existe pas");
         }
 
         //die (dump($produit));
         return $this->render('Product/show.html.twig',
             [
-                "produit" => $produit,
+                "products" => $products,
             ]);
 
     }
+
+    /**
+     * @Route("/products/creer", name="product_create")
+     */
+
+    public function createAction(Request $request)
+    {
+        $product = new Product();
+        //$product->setTitle('hello');
+        //dump($product);
+        $formProduct = $this->createForm(ProductType::class, $product);
+        $formProduct->handleRequest($request);
+
+        if ($formProduct->isSubmitted() && $formProduct->isValid())
+        {
+            //die(dump($product));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+
+            //sauvegarde du produit
+            $this->addFlash('success', 'Votre produit a bien été ajouté');
+
+            return $this->redirectToRoute('product_create');
+
+        }
+
+        return $this->render('Product/create.html.twig', ['formProduct' => $formProduct->createView()]);
+    }
+
+    /**
+     * @Route("/products/edit/{id}", name="edit_product", requirements={"id" = "\d+"})
+     */
+
+    /*public function editAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository("adminBundle:Product")
+            ->find($id);
+
+        formProduct = $this->createForm(ProductType::class, $product);
+        $formProduct->handleRequest($request);
+
+        if ($formProduct->isSubmitted() && $formProduct->isValid())
+        {
+            //die(dump($product));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+
+            //sauvegarde du produit
+            $this->addFlash('success', 'Votre produit a bien été modifié');
+
+            return $this->redirectToRoute('product');
+
+        }
+
+        return $this->render('Product/edit.html.twig', ['formProduct' => $formProduct->createView()]);
+    }*/
 
 }

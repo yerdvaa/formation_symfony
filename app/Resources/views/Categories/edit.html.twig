@@ -1,0 +1,46 @@
+{% extends "layout.html.twig" %}
+
+{% block ariane %}
+    <li class="active">Modification des catégories</li>
+{% endblock %}
+
+
+{% block content %}
+
+
+
+    <div class="box box-info">
+        <div class="box-body">
+            {{ form_start(formCategorie, {attr:{ novalidate:"novalidate"}}) }}
+
+            <div>
+                {{ form_label(formCategorie.title,  "Nom de la catégorie", {label_attr: {class: "cat"} } ) }}
+                {{ form_errors(formCategorie.title) }}
+                {{ form_widget(formCategorie.title, {attr: { class: "form-control"} } ) }}
+            </div>
+
+            <div>
+                {{ form_label(formCategorie.description, "Description",{label_attr: {class: "le-nom-de-votre-class"} }) }}<br>
+                {{ form_errors(formCategorie.description) }}
+                {{ form_widget(formCategorie.description, {attr: {placeholder: "Description de la catégorie", class: "form-control"} }) }}
+            </div>
+
+            <div>
+                {{ form_label(formCategorie.position,  "Position", {label_attr: {class: "cat"} } ) }}
+                {{ form_errors(formCategorie.position) }}
+                {{ form_widget(formCategorie.position, {attr: { class: "form-control"} } ) }}
+            </div>
+
+            <div class="box-footer">
+                <button class="btn btn-info">Modifier</button>
+            </div>
+
+            {{ form_end(formCategorie) }}
+
+        </div>
+    </div>
+
+{% endblock content %}
+
+
+

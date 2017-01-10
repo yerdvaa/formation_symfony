@@ -4,16 +4,49 @@
     <li class="active">Modification de produits</li>
 {% endblock %}
 
+
 {% block content %}
 
 
-        <p>Nom du produit : <strong>{{ product.title }}</strong></p>
-        <p>Description : {{ product.description }}</p>
-        <p>Prix : {{ product.price }} €</p>
-        <!--<p>Date de création : {#{{ produit.date_created | date("d/m/y") }}#} </p>-->
-        <p>Quantité: {{ product.quantity }}</p>
+
+        <div class="box box-info">
+                <div class="box-body">
+                        {{ form_start(formProduct, {attr:{ novalidate:"novalidate"}}) }}
+
+                        <div>
+                                {{ form_label(formProduct.title,  "Nom du produit", {label_attr: {class: "prod"} } ) }}
+                                {{ form_errors(formProduct.title) }}
+                                {{ form_widget(formProduct.title, {attr: { class: "form-control"} } ) }}
+                        </div>
+
+                        <div>
+                                {{ form_label(formProduct.description, "Description",{label_attr: {class: "le-nom-de-votre-class"} }) }}<br>
+                                {{ form_errors(formProduct.description) }}
+                                {{ form_widget(formProduct.description, {attr: {placeholder: "Description du produit", class: "form-control"} }) }}
+                        </div>
+
+                        <div>
+                                {{ form_label(formProduct.price,  "Prix", {label_attr: {class: "prod"} } ) }}
+                                {{ form_errors(formProduct.price) }}
+                                {{ form_widget(formProduct.price, {attr: { class: "form-control"} } ) }}
+                        </div>
+
+                        <div>
+                                {{ form_label(formProduct.quantity,  "Quantité", {label_attr: {class: "prod"} } ) }}
+                                {{ form_errors(formProduct.quantity) }}
+                                {{ form_widget(formProduct.quantity, {attr: { class: "form-control"} } ) }}
+                        </div>
+
+                        <div class="box-footer">
+                                <button class="btn btn-info">Modifier</button>
+                        </div>
+
+                        {{ form_end(formProduct) }}
+
+                </div>
+        </div>
+
+{% endblock content %}
 
 
 
-        <a href="{{ path("edit_product", {id:product.id}) }}"><button type="button" class="btn bg-purple btn-xs">Modifier</button></a>
-    {% endblock %}

@@ -1,0 +1,59 @@
+{% extends "layout.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
+{% endblock %}
+
+{% block ariane %}
+    <li class="active">Toutes les catégories</li>
+{% endblock %}
+
+{%  block content %}
+<strong>
+
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-info">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+</strong>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- /.box -->
+        <div class="box-header">
+            <h3 class="box-title">Liste des marques</h3>
+        </div>
+        <a href="{{ path("brand_new") }}"><button type="button" class="btn btn-block bg-purple">Créer une nouvelle marque</button></a>
+        <!-- /.box-header -->
+        <div class="box box-body">
+            <table id="example1" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for brand in brands %}
+            <tr>
+                <td><a href="{{ path('brand_show', { 'id': brand.id }) }}">{{ brand.id }}</a></td>
+                <td>{{ brand.title }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('brand_show', { 'id': brand.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('brand_edit', { 'id': brand.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

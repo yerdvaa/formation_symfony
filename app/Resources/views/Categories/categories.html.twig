@@ -11,22 +11,31 @@
 
 
 {%  block content %}
+
+    <strong>
+
+        {% for flash_message in app.session.flashBag.get('success') %}
+            <div class="alert alert-info">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+    </strong>
+
     <div class="row">
         <div class="col-md-12">
             <!-- /.box -->
             <div class="box-header">
                 <h3 class="box-title">Tous les produits</h3>
             </div>
-            <button type="button" class="btn btn-block bg-purple">Créer</button>
+            <a href="{{ path("categorie_create") }}"><button type="button" class="btn btn-block bg-purple">Créer</button></a>
             <!-- /.box-header -->
             <div class="box box-body">
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>Position</th>
                         <th>Title</th>
                         <th>Description</th>
-                        <th>Date</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -34,28 +43,21 @@
 
                     {% for categorie in categories %}
                         <tr>
-                            <td>{{ categorie.id }}</td>
+                            <td>{{ categorie.position }}</td>
                             <td>{{ categorie.title }}
-                            (
-                                    {% if categorie.active == true %}
-                                        Active
-                                    {% else %}
-                                        Non-active
-                                    {% endif %}
 
-                             )
                             </td>
                             <td>{{ categorie.description | raw |nl2br | slice(0,50)}}
                                 ({{ categorie.description | length }})
                             </td>
-                            <td>{{ categorie.date_created | date("d/m/y") }}</td>
+
                             <td>
                                 <div class="btn-group">
                                     <a href=" {{ path("show_categories",{id:categorie.id}) }}">
                                         <button type="button" class="btn btn-info btn-xs">
                                             Visualiser</button></a>
-                                    <a href=""><button type="button" class="btn btn-warning btn-xs">Editer</button></a>
-                                    <a href=""><button type="button" class="btn btn-danger btn-xs">Supprimer</button></a>
+                                    <a href=" {{ path("edit_categorie",{id:categorie.id}) }}"><button type="button" class="btn btn-warning btn-xs">Editer</button></a>
+                                    <a href=" {{ path("remove_categorie",{id:categorie.id}) }}"><button type="button" class="btn btn-danger btn-xs">Supprimer</button></a>
                                 </div>
                             </td>
                         </tr>

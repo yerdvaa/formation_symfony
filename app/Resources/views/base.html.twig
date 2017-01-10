@@ -71,11 +71,52 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset("dist/js/demo.js") }}"></script>
     <script>
-        $('.datepicker').datepicker(
+
+        $(document).ready(function() {
+            $('.datepicker').datepicker(
+                    {
+                        format:'dd-mm-yyyy'
+                    }
+            );
+
+
+            $('.table').on('click', '.btn-danger',function(event) {
+                console.log($(this))
+                event.preventDefault();
+                if(confirm('Êtes-vous sûr de vouloir "supprimer"?'))
                 {
-                    format:'dd-mm-yyyy'
+                    var elementA = $(this);
+                    var elementParentTable = elementA.closest('.table');
+                    var linkUrl = elementA.parent().attr('href');
+                    //Requête Ajax
+                    $.ajax({
+                        url : linkUrl,
+                        method: "GET",
+                    }).done(function(data)
+                        {
+                            elementA.closest('tr').fadeOut(700, function(){
+                                //console.log($(this);
+                                $(this).remove();
+
+                                // Suppression des éventuels messages existants
+                                $('.alert-success').remove();
+
+
+                                // Ajout du message
+                                var message = $('<p class="alert alert-danger">').append(data.message);
+                                elementParentTable.before(message);
+                                message.delay(3000).fadeOut()
+                            })
+                            });
+                         });
                 }
-        );
+            });
+
+
+        });
+
+
+
     </script>
 
 {% endblock %}

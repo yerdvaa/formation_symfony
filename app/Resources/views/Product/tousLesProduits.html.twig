@@ -11,13 +11,23 @@
 
 
 {%  block content %}
+
+    <strong>
+
+        {% for flash_message in app.session.flashBag.get('success') %}
+            <div class="alert alert-info">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+    </strong>
+
     <div class="row">
         <div class="col-md-12">
             <!-- /.box -->
             <div class="box-header">
                 <h3 class="box-title">Tous les produits</h3>
             </div>
-            <button type="button" class="btn btn-block bg-purple">Créer</button>
+            <a href="{{ path("product_create") }}"><button type="button" class="btn btn-block bg-purple">Créer</button></a>
             <!-- /.box-header -->
             <div class="box box-body">
                 <table id="example1" class="table table-bordered table-striped">
@@ -48,7 +58,7 @@
                                     <button type="button" class="btn btn-info btn-xs">
                                     Visualiser</button></a>
                                 <a href="{{ path("edit_product", {id:product.id}) }}"><button type="button" class="btn btn-warning btn-xs">Editer</button></a>
-                                <a href=""><button type="button" class="btn btn-danger btn-xs">Supprimer</button></a>
+                                <a href="{{ path("remove_product", {id:product.id}) }}"><button type="button" class="btn btn-danger btn-xs">Supprimer</button></a>
                             </div>
                         </td>
                     </tr>

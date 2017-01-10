@@ -7,6 +7,7 @@ use adminBundle\Entity\Product;
 use adminBundle\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProductController extends Controller
@@ -157,7 +158,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/products/edit/{id}", name="edit_product", requirements={"id" = "\d+"})
+     * @Route("/products/edit/{id}", name="edit_product")
      */
 
     public function editAction(Request $request, $id)
@@ -166,7 +167,15 @@ class ProductController extends Controller
         $product = $em->getRepository("adminBundle:Product")
             ->find($id);
 
+        // Vérification si le produit est bien en BDD
+        if (!$product) {
+            throw $this->createNotFoundException("Le produit n'existe pas");
+        }
+
+        // Création du formulaire ProductType permettant de créer un produit
+        // Je lie le formulaire à mon objet $product
         $formProduct = $this->createForm(ProductType::class, $product);
+        // Je lie la requête ($_POST) à mon formulaire donc à mon objet $product
         $formProduct->handleRequest($request);
 
         if ($formProduct->isSubmitted() && $formProduct->isValid())
@@ -177,6 +186,8 @@ class ProductController extends Controller
             $em->persist($product);
             $em->flush();
 
+
+
             //sauvegarde du produit
             $this->addFlash('success', 'Votre produit a bien été modifié');
 
@@ -184,7 +195,37 @@ class ProductController extends Controller
 
         }
 
-        return $this->render('Product/edit.html.twig', ['formProduct' => $formProduct->createView(), "product" => $product,]);
+        return $this->render('Product/edit.html.twig', ['formProduct' => $formProduct->createView()]);
+    }
+
+    /**
+     * @Route("/products/remove/{id}", name="remove_product")
+     */
+
+    public function removeAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository("adminBundle:Product")
+            ->find($id);
+
+        // Vérification si le produit est bien en BDD
+        if (!$product) {
+            throw $this->createNotFoundException("Le produit n'existe pas");
+        }
+
+        $em->remove($product);
+        $em->flush();
+
+        $messageSuccess = 'Votre produit a été supprimé';
+
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse(['message' => $messageSuccess]);
+        }
+
+        $this->addFlash('success', $messageSuccess);
+
+        return $this->redirectToRoute('product');
+
     }
 
 }

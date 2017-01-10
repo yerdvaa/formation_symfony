@@ -303,33 +303,40 @@
 
                     </ul>
                 </li>
-                <li class="treeview">
+                <li class="treeview {% if app.request.get('_route') == "product" %} active {% endif %}">
                     <a href="{{ path("product") }}">
                         <i class="fa fa-files-o"></i>
                         <span>Produits</span></a>
+                </li>
+
+                <li class="treeview {% if app.request.get('_route') == "product_create" %} active {% endif %}">
                     <a href="{{ path("product_create") }}">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
-
-
                         <span>Création de Produits</span></a>
+                </li>
+
+                <li class="treeview {% if app.request.get('_route') == "categories" %} active {% endif %}">
                     <a href="{{ path("categories") }}">
                         <i class="fa fa-list" aria-hidden="true"></i>
-
                         <span>Catégories</span></a>
+                 </li>
+
+                <li class="treeview {% if app.request.get('_route') == "contact" %} active {% endif %}">
                     <a href="{{ path("contact") }}">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
-
                         <span>Contact</span></a>
+                </li>
 
+                <li class="treeview {% if app.request.get('_route') == "feedback" %} active {% endif %}">
                     <a href="{{ path("feedback") }}">
                         <i class="fa fa-comment" aria-hidden="true"></i>
                         <span>Feedback</span></a>
-                        <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
-                    </a>
+                 </li>
+
+
 
             </ul>
+            {{ render(controller("adminBundle:Categories:renderCategorie")) }}
         </section>
         <!-- /.sidebar -->
     </aside>
@@ -345,7 +352,7 @@
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
+                <li class="active"><a href="{{ path("admin")}}">Dashboard<</a>/li>
                 {% block ariane %} {% endblock %}
             </ol>
         </section>

@@ -15,6 +15,8 @@
             <p>Prix : {{ products.price }} €</p>
             <!--<p>Date de création : {#{{ produit.date_created | date("d/m/y") }}#} </p>-->
             <p>Quantité: {{ products.quantity }}</p>
+            <p>Marque: {{ products.marque.title }}</p>
+    {{ dump(products.marque.title) }}
 
 
 

@@ -37,6 +37,12 @@
                                 {{ form_widget(formProduct.quantity, {attr: { class: "form-control"} } ) }}
                         </div>
 
+                        <div>{{ dump(formProduct) }}
+                             {#  {{ form_label(formProduct.marque.title,  "Marque", {label_attr: {class: "prod"} } ) }}
+                                {{ form_errors(formProduct.marque.title) }}
+                                {{ form_widget(formProduct.marque.title, {attr: { class: "form-control"} } ) }}#}
+                        </div>
+
                         <div class="box-footer">
                                 <button class="btn btn-info">Modifier</button>
                         </div>

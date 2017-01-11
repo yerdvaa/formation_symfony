@@ -38,6 +38,7 @@
                         <th>Description</th>
                         <th>Prix</th>
                         <th>Quantité</th>
+                        <th>Marque</th>
                         <!--<th>Date</th>-->
                         <th>Action</th>
                     </tr>
@@ -50,7 +51,9 @@
 
                         <td>{{ product.description }}</td>
                         <td>{{ product.price }} €</td>
-                        <td>{{ product.quantity}}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>{{ product.marque.title }}</td>
+
                         <!--<td>{#{{ product.date_created | date("d/m/y") }}#}</td>-->
                         <td>
                             <div class="btn-group">

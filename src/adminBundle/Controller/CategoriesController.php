@@ -211,8 +211,12 @@ class CategoriesController extends Controller
 
     }
 
-    public function renderCategorieAction()
+    public function renderCategoriesAction()
     {
-        die('ok');
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('adminBundle:Categorie')->findAll();
+        //die(dump($categories));
+
+        return $this->render('Categories/renderCategories.html.twig', ['categories' => $categories]);
     }
 }

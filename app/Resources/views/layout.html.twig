@@ -333,11 +333,21 @@
                         <span>Feedback</span></a>
                  </li>
 
+                <li class="treeview {% if app.request.get('_route') == "brand_index" %} active {% endif %}">
+                    <a href="{{ path("brand_index") }}">
+                        <i class="fa fa-barcode" aria-hidden="true"></i>
 
+
+                        <span>Marques</span></a>
+                </li>
+
+                    <a href="{{ path("categories") }}">
+                        <span>{{ render(controller("adminBundle:Categories:renderCategories")) }} </span></a>
 
             </ul>
-            {{ render(controller("adminBundle:Categories:renderCategorie")) }}
+
         </section>
+
         <!-- /.sidebar -->
     </aside>
 

@@ -1,6 +1,22 @@
-{% extends 'layout.html.twig' %}
+{% extends "layout.html.twig" %}
+
+{% block ariane %}
+<li class="active">Création d'une marque</li>
+{% endblock %}
 
 {% block content %}
+
+<strong>
+
+    {% for flash_message in app.session.flashBag.get('success') %}
+    <div class="alert alert-info">
+        {{ flash_message }}
+    </div>
+    {% endfor %}
+</strong>
+
+<div class="box box-info">
+    <div class="box-body">
     <h1>Brand creation</h1>
 
     {{ form_start(form) }}
@@ -13,4 +29,6 @@
             <a href="{{ path('brand_index') }}">Back to the list</a>
         </li>
     </ul>
+    </div>
+</div>
 {% endblock %}

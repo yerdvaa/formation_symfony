@@ -4,15 +4,14 @@ namespace adminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * Categorie
+ * product
  *
- * @ORM\Table(name="categorie")
- * @ORM\Entity(repositoryClass="adminBundle\Repository\CategorieRepository")
+ * @ORM\Table(name="product")
+ * @ORM\Entity(repositoryClass="adminBundle\Repository\ProductRepository")
  */
-class Categorie
+class Product
 {
     /**
      * @var int
@@ -26,13 +25,16 @@ class Categorie
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=100)
      *
      * @Assert\NotBlank(message="Champ obligatoire")
      *
      * @Assert\Length(
-     *     min = 2,
-     *     minMessage = "Votre titre doit contenir au moins {{ limit }} caractères.")
+     *     min = 5,
+     *     max = 100,
+     *     minMessage = "Votre titre doit contenir au moins {{ limit }} caractères.",
+     *     maxMessage = "Votre titre ne peut pas avoir plus de {{ limit }} caractères."
+     * )
      */
     private $title;
 
@@ -46,46 +48,43 @@ class Categorie
      * @Assert\Length(
      *     max = 300,
      *     maxMessage="Votre description ne peut pas avoir plus de {{ limit }} caractères.")
+     *
      */
     private $description;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="price", type="float")
+     *
+     * @Assert\NotBlank(message="Champ obligatoire")
+     *
+     * @Assert\GreaterThan(0)
+     */
+    private $price;
+
+    /**
      * @var int
      *
-     * @ORM\Column(name="position", type="integer")
+     * @ORM\Column(name="quantity", type="integer")
      *
      * @Assert\NotBlank(message="Champ obligatoire")
      *
      */
-    private $position;
+    private $quantity;
+
 
     /**
-     * @Assert\Callback
+     * @ORM\ManyToOne(targetEntity="Brand")
+     * @ORM\JoinColumn(name="id_brand", referencedColumnName="id", nullable=false)
      */
-    public function validate(ExecutionContextInterface $context, $payload)
-    {
-        //die(dump($this->getPosition()));
-
-        if ($this->getPosition() == 0 && $this->getTitle() != "Par défaut") {
-            $context->buildViolation('La position "0" est réservé à la catégorie "par défaut"')
-                // permet d'attacher l'erreur à une propriété
-                //->atPath('position')
-                ->addViolation();
-        }
-    }
-
-    /**
-     * @ORM\Column(name="active", type="boolean")
-     */
-    private $active;
+    private $marque;
 
 
-    
     /**
      * Get id
      *
      * @return int
-     *
      */
     public function getId()
     {
@@ -97,7 +96,7 @@ class Categorie
      *
      * @param string $title
      *
-     * @return Categorie
+     * @return Product
      */
     public function setTitle($title)
     {
@@ -121,7 +120,7 @@ class Categorie
      *
      * @param string $description
      *
-     * @return Categorie
+     * @return Product
      */
     public function setDescription($description)
     {
@@ -141,50 +140,53 @@ class Categorie
     }
 
     /**
-     * Set position
+     * Set price
      *
-     * @param integer $position
+     * @param float $price
      *
-     * @return Categorie
+     * @return Product
      */
-    public function setPosition($position)
+    public function setPrice($price)
     {
-        $this->position = $position;
+        $this->price = $price;
 
         return $this;
     }
 
     /**
-     * Get position
+     * Get price
+     *
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set quantity
+     *
+     * @param integer $quantity
+     *
+     * @return Product
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Get quantity
      *
      * @return int
      */
-    public function getPosition()
+    public function getQuantity()
     {
-        return $this->position;
+        return $this->quantity;
     }
 
-    /**
-     * Set active
-     *
-     * @param boolean $active
-     *
-     * @return Categorie
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
 
-        return $this;
-    }
 
-    /**
-     * Get active
-     *
-     * @return boolean
-     */
-    public function getActive()
-    {
-        return $this->active;
-    }
 }

@@ -10,4 +10,99 @@ namespace adminBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function myFindAll()
+    {
+        // Creation d'une requête DQL
+        // findAll() maison
+        $query = $this->getEntityManager()
+                    ->createQuery('
+                        SELECT prod
+                        FROM adminBundle:Product prod
+                    ');
+        //die(dump($query->getResult()));
+
+        // Création d'une requête grâce au builder
+        // findAll() maison
+        $query = $this->getEntityManager()->createQueryBuilder()
+                    ->select("prod")
+                    ->from("adminBundle:Product", "prod")
+                    ->getQuery();
+
+        //die(dump($query->getResult()));
+    }
+
+    public function myFind($id)
+    {
+        // Creation d'une requête DQL
+        // find() maison
+        $query = $this->getEntityManager()
+            ->createQuery('
+                    			SELECT prod
+                          FROM adminBundle:Product prod
+                          WHERE prod.id = :identifiant
+                    ')
+                        ->setParameter('identifiant', $id);
+        /* Plusieurs paramètres
+              ->setParameters([
+                      'identifiant' => $id,
+                  'autre_variable' => $autre
+              ])
+              */
+       // die(dump($query->getOneOrNullResult()));
+
+        // Création d'une requête grâce au builder
+        // findAll() maison
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select("prod")
+            ->from("adminBundle:Product", "prod")
+            ->getQuery();
+
+        //die(dump($query->getResult()));
+
+        return $query->getResult();
+
+    }
+
+    public function LessThanFiveQuantity()
+    {
+        $query = $this->getEntityManager()
+                    ->createQuery('
+                        SELECT prod
+                        FROM adminBundle:Product prod
+                        WHERE prod.quantity < 5
+                    ');
+        //die(dump($query->getResult()));
+    }
+    public function QuantityNull()
+    {
+        $query = $this->getEntityManager()
+            ->createQuery('
+                        SELECT prod
+                        FROM adminBundle:Product prod
+                        WHERE prod.quantity = 0
+                    ');
+        //die(dump($query->getResult()));
+    }
+
+    public function ProductCount()
+    {
+        $query = $this->getEntityManager()
+            ->createQuery('
+                        SELECT COUNT(prod)
+                        FROM adminBundle:Product prod
+                        
+                    ');
+        die(dump($query->getResult()));
+    }
+
+    public function ProductQuantity()
+    {
+        $query = $this->getEntityManager()
+            ->createQuery('
+                        SELECT SUM(prod.quantity)
+                        FROM adminBundle:Product prod
+                        
+                    ');
+        die(dump($query->getResult()));
+    }
 }

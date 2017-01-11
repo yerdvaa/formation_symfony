@@ -1,8 +1,14 @@
-{% extends 'layout.html.twig' %}
+{% extends "layout.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
 
-{% block content %}
-    <h1>Brand</h1>
+{% block ariane %}
+    <li class="active">Catégorie</li>
+{% endblock %}
 
+
+{%  block content %}
     <table>
         <tbody>
             <tr>
@@ -16,17 +22,12 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('brand_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('brand_edit', { 'id': brand.id }) }}">Edit</a>
-        </li>
-        <li>
+
+        <a href="{{ path("brand_index") }}"><button type="button" class="btn btn-info">Retour à la liste des catégories</button></a>
+            <a href="{{ path('brand_edit', { 'id': brand.id }) }}"><button type="button" class="btn btn-info">Modifier</button></a>
+
             {{ form_start(delete_form) }}
                 <input type="submit" value="Delete">
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+
 {% endblock %}

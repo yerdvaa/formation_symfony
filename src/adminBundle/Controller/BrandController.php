@@ -20,11 +20,15 @@ class BrandController extends Controller
      * @Route("/", name="brand_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $tri = $request->query->get("sort","ASC");
+        $brands = $em->getRepository('adminBundle:Brand')->findBy([], ["title" => $tri]);
+        // test au cas où l'on n'a pas ASC ou DESC pour sort
+        if (!in_array($tri, ['ASC', 'DESC'])) $tri = 'ASC';
 
-        $brands = $em->getRepository('adminBundle:Brand')->findAll();
+
 
         return $this->render('brand/index.html.twig', array(
             'brands' => $brands,

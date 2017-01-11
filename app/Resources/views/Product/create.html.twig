@@ -38,8 +38,8 @@
             </div>
 
             <div>
-                {{ form_label(formProduct.quantity,  "Quantité", {label_attr: {class: "prod"} } ) }}
                 {{ form_errors(formProduct.quantity) }}
+                {{ form_label(formProduct.quantity,  "Quantité", {label_attr: {class: "prod"} } ) }}
                 {{ form_widget(formProduct.quantity, {attr: { class: "form-control"} } ) }}
             </div>
 

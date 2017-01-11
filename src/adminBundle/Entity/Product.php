@@ -75,6 +75,13 @@ class Product
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="Brand")
+     * @ORM\JoinColumn(name="id_brand", referencedColumnName="id", nullable=false)
+     */
+    private $marque;
+
+
+    /**
      * Get id
      *
      * @return int
@@ -179,5 +186,31 @@ class Product
     {
         return $this->quantity;
     }
-}
 
+
+
+
+    /**
+     * Set marque
+     *
+     * @param \adminBundle\Entity\Brand $marque
+     *
+     * @return Product
+     */
+    public function setMarque(\adminBundle\Entity\Brand $marque)
+    {
+        $this->marque = $marque;
+
+        return $this;
+    }
+
+    /**
+     * Get marque
+     *
+     * @return \adminBundle\Entity\Brand
+     */
+    public function getMarque()
+    {
+        return $this->marque;
+    }
+}

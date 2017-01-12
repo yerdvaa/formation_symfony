@@ -31,6 +31,20 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         //die(dump($query->getResult()));
     }
 
+    public function findProduct()
+    {
+        $result = $this->createQueryBuilder('product')
+                    ->select('product.title, product.price, brand.title')
+                    ->join('product.marque','brand')
+                    ->where('product.price > :prix')
+                    ->andWhere('brand.title LIKE :nomMarque')
+                    ->setParameters(['prix'=> 10, 'nomMarque'=>'%titre1%'])
+                    ->getQuery()
+                    ->getResult();
+            //dump($result);exit;
+            return$result;
+    }
+
     public function myFind($id)
     {
         // Creation d'une requête DQL
@@ -92,7 +106,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
                         FROM adminBundle:Product prod
                         
                     ');
-        die(dump($query->getResult()));
+        //die(dump($query->getResult()));
     }
 
     public function ProductQuantity()
@@ -103,6 +117,28 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
                         FROM adminBundle:Product prod
                         
                     ');
-        die(dump($query->getResult()));
+        //die(dump($query->getResult()));
     }
+
+    public function PriceMinMax()
+    {
+        $query = $this->getEntityManager()
+            ->createQuery('
+                        SELECT (MIN(prod.price)), (MAX(prod.price))
+                        FROM adminBundle:Product prod
+                    ');
+        //die(dump($query->getResult()));
+    }
+
+    public function PriceMaxQuantityMax()
+    {
+        $query = $this->getEntityManager()
+            ->createQueryBuilder()
+                        ->select((MAX('prod.price')),(MAX('prod.quantity')) )
+                        ->from('adminBundle:Product', 'prod')
+                        ->getQuery()
+                    ;
+        //die(dump($query->getResult()));
+    }
+
 }

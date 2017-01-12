@@ -15,44 +15,6 @@
         {% endfor %}
     </strong>
 
-    <div class="box box-info">
-        <div class="box-body">
-        {{ form_start(formProduct, {attr:{ novalidate:"novalidate"}}) }}
-
-            <div>
-                {{ form_label(formProduct.title,  "Nom du produit", {label_attr: {class: "prod"} } ) }}
-                {{ form_errors(formProduct.title) }}
-                {{ form_widget(formProduct.title, {attr: { class: "form-control"} } ) }}
-            </div>
-
-            <div>
-                {{ form_label(formProduct.description, "Description",{label_attr: {class: "le-nom-de-votre-class"} }) }}<br>
-                {{ form_errors(formProduct.description) }}
-                {{ form_widget(formProduct.description, {attr: {placeholder: "Description du produit", class: "form-control"} }) }}
-            </div>
-
-            <div>
-                {{ form_label(formProduct.price,  "Prix", {label_attr: {class: "prod"} } ) }}
-                {{ form_errors(formProduct.price) }}
-                {{ form_widget(formProduct.price, {attr: { class: "form-control"} } ) }}
-            </div>
-
-            <div>
-                {{ form_errors(formProduct.quantity) }}
-                {{ form_label(formProduct.quantity,  "Quantité", {label_attr: {class: "prod"} } ) }}
-                {{ form_widget(formProduct.quantity, {attr: { class: "form-control"} } ) }}
-            </div>
-
-            <div class="box-footer">
-                <button class="btn btn-info">Envoyer</button>
-                <a href="{{ path("product") }}"><button type="button" class="btn btn-info">Retour à la liste des produits</button></a>
-            </div>
-
-
-
-            {{ form_end(formProduct) }}
-
-        </div>
-    </div>
+    {% include "form/ProductForm.html.twig" %}
 
 {% endblock content %}

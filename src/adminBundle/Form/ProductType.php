@@ -2,6 +2,7 @@
 
 namespace adminBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,8 +18,21 @@ class ProductType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('price')
-            ->add('quantity');
-            //->add('marque.title');
+            ->add('quantity')
+            ->add('marque', EntityType::class,[
+                'class' => 'adminBundle\Entity\Brand',
+                'choice_label' => 'title',
+                'placeholder' => ''
+                /*'expanded' => true,
+                'multiple' => true*/
+                ])
+            ->add('categories', EntityType::class,[
+                  'class' => 'adminBundle\Entity\Categorie',
+                  'choice_label' => 'title',
+                  'placeholder' => '',
+                  'expanded' => true,
+                  'multiple' => true
+            ]);
     }
     
     /**
@@ -36,7 +50,7 @@ class ProductType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'adminbundle_product';
+        return 'adminBundle_product';
     }
 
 

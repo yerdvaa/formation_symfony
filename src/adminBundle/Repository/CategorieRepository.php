@@ -18,7 +18,7 @@ class CategorieRepository extends \Doctrine\ORM\EntityRepository
                         FROM adminBundle:Categorie cat
                         
                     ');
-        die(dump($query->getResult()));
+        //die(dump($query->getResult()));
     }
 
     public function CategoryActive()
@@ -30,7 +30,7 @@ class CategorieRepository extends \Doctrine\ORM\EntityRepository
                         WHERE cat.active = true
                         
                     ');
-        die(dump($query->getResult()));
+        //die(dump($query->getResult()));
     }
 
     public function CategoryActiveAndNotActive()
@@ -41,7 +41,7 @@ class CategorieRepository extends \Doctrine\ORM\EntityRepository
                         FROM adminBundle:Categorie cat
                         GROUP BY cat.active 
                          ');
-        
-        die(dump($query->getResult()));
+
+        //die(dump($query->getResult()));
     }
 }

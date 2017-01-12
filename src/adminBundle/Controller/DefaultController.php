@@ -21,8 +21,10 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $tousLesProduits = $em->getRepository('adminBundle:Categorie')->CategoryActiveAndNotActive();
+        $doctrine = $this->getDoctrine();
+        $rc = $doctrine->getRepository("adminBundle:Product");
+        $tousLesProduits = $rc->findProduct();
+
         return $this->render('Default/index.html.twig',
             [
                 'firstname' => 'audrey'

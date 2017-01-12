@@ -39,6 +39,9 @@
                         <th>Prix</th>
                         <th>Quantité</th>
                         <th>Marque</th>
+                        <th>Catégorie</th>
+                        <th>Date de création</th>
+                        <th>Date de modification</th>
                         <!--<th>Date</th>-->
                         <th>Action</th>
                     </tr>
@@ -53,8 +56,17 @@
                         <td>{{ product.price }} €</td>
                         <td>{{ product.quantity }}</td>
                         <td>{{ product.marque.title }}</td>
+                        <td>
 
-                        <!--<td>{#{{ product.date_created | date("d/m/y") }}#}</td>-->
+                                {% for category in product.categories %}
+                                    {{ category.title }}
+                                {% endfor %}
+
+
+                        </td>
+
+                        <td>{{ product.dateCreation | date("d/m/y") }}</td>
+                        <td>{{ product.dateEdit | date("d/m/y") }}</td>
                         <td>
                             <div class="btn-group">
                                 <a href=" {{ path("show_product",{id:product.id}) }}">

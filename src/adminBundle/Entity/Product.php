@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="product")
  * @ORM\Entity(repositoryClass="adminBundle\Repository\ProductRepository")
+ * @ORM\EntityListeners({"adminBundle\Listener\ProductListener"})
  */
 class Product
 {
@@ -77,9 +78,28 @@ class Product
     /**
      * @ORM\ManyToOne(targetEntity="Brand")
      * @ORM\JoinColumn(name="id_brand", referencedColumnName="id", nullable=false)
+     * @Assert\NotBlank(message="Veuillez sélectionner une marque.")
      */
     private $marque;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Categorie", inversedBy="Product")
+     * @ORM\JoinTable(name="products_categories")
+     * @Assert\NotBlank(message="Veuillez sélectionner une catégorie.")
+     */
+    private $categories;
+
+    /**
+     * @var datetime
+     * @ORM\Column(name="date_Creation", type="datetime")
+     */
+    private $dateCreation;
+
+    /**
+     * @var datetime
+     * @ORM\Column(name="date_Modification", type="datetime")
+     */
+    private $dateEdit;
 
     /**
      * Get id
@@ -212,5 +232,94 @@ class Product
     public function getMarque()
     {
         return $this->marque;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add category
+     *
+     * @param \adminBundle\Entity\Categorie $category
+     *
+     * @return Product
+     */
+    public function addCategory(\adminBundle\Entity\Categorie $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \adminBundle\Entity\Categorie $category
+     */
+    public function removeCategory(\adminBundle\Entity\Categorie $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     *
+     * @return Product
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * Set dateEdit
+     *
+     * @param \DateTime $dateEdit
+     *
+     * @return Product
+     */
+    public function setDateEdit($dateEdit)
+    {
+        $this->dateEdit = $dateEdit;
+
+        return $this;
+    }
+
+    /**
+     * Get dateEdit
+     *
+     * @return \DateTime
+     */
+    public function getDateEdit()
+    {
+        return $this->dateEdit;
     }
 }

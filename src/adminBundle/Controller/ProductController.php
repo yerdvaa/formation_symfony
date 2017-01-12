@@ -163,9 +163,9 @@ class ProductController extends Controller
 
     public function editAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository("adminBundle:Product")
-            ->find($id);
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getRepository("adminBundle:Product");
+        $product = $em->find($id);
 
         // Vérification si le produit est bien en BDD
         if (!$product) {

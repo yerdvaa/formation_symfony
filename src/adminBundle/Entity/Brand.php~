@@ -63,3 +63,4 @@ class Brand
         return $this->title;
     }
 }
+

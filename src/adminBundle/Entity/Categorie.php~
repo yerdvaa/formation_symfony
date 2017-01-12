@@ -79,6 +79,10 @@ class Categorie
      */
     private $active;
 
+    /**
+     * @Orm\ManyToMany(targetEntity="Product", mappedBy="categories")
+     */
+    private $product;
 
     
     /**
@@ -163,5 +167,28 @@ class Categorie
     {
         return $this->position;
     }
-}
 
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return Categorie
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+}

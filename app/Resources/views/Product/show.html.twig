@@ -10,13 +10,19 @@
 
 {%  block content %}
 
-            <p>Nom du produit : <strong>{{ products.title }}</strong></p>
+            <h4>Nom du produit : <strong>{{ products.title }}</strong></h4>
             <p>Description : {{ products.description }}</p>
             <p>Prix : {{ products.price }} €</p>
             <!--<p>Date de création : {#{{ produit.date_created | date("d/m/y") }}#} </p>-->
             <p>Quantité: {{ products.quantity }}</p>
             <p>Marque: {{ products.marque.title }}</p>
-    {{ dump(products.marque.title) }}
+            <p>Catégorie:
+                {% for category in products.categories %}
+                {{ category.title }}
+                {% endfor %}
+            </p>
+
+
 
 
 

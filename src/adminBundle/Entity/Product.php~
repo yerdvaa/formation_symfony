@@ -101,6 +101,13 @@ class Product
      */
     private $dateEdit;
 
+
+    /**
+     * @var string
+     * @ORM\Column(name="image", type="string")
+     */
+    private $image;
+
     /**
      * Get id
      *
@@ -273,5 +280,53 @@ class Product
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     *
+     * @return Product
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * Set dateEdit
+     *
+     * @param \DateTime $dateEdit
+     *
+     * @return Product
+     */
+    public function setDateEdit($dateEdit)
+    {
+        $this->dateEdit = $dateEdit;
+
+        return $this;
+    }
+
+    /**
+     * Get dateEdit
+     *
+     * @return \DateTime
+     */
+    public function getDateEdit()
+    {
+        return $this->dateEdit;
     }
 }

@@ -144,6 +144,26 @@ class ProductController extends Controller
             //die(dump($product));
 
             $em = $this->getDoctrine()->getManager();
+
+           /* // récup de l'image
+            $image = $product->getImage();
+
+           //service utils
+            $serviceUtils = $this->get('admin.service.utils.string');
+            $fileName = $serviceUtils->generateUniqId() . '.' . $image->guessExtension();
+
+            //transfert image:
+            $image->move('upload/', $fileName);
+
+            //nom unique ds la bdd
+
+
+            $serviceUpload = $this->get('admin.service.upload');
+            $fileName = $serviceUpload->upload($image);
+
+            $product->setImage($fileName);*/
+            //die(dump($image));
+
             $em->persist($product);
             $em->flush();
 

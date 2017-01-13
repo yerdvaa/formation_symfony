@@ -32,13 +32,18 @@
                 {{ form_label(formProduct.marque,  "Marque", {label_attr: {class: "prod"} } ) }}
                 {{ form_widget(formProduct.marque, {attr: { class: "form-control"} } ) }}
             </div>
-            <div>
-                {{ form_errors(formProduct.categories) }}
-                {{ form_label(formProduct.categories,  "Catégorie", {label_attr: {class: "prod"} } ) }}
-                {{ form_widget(formProduct.categories, {attr: { class: "form-control"} } ) }}
+
+            <div class="form-group">
+                {{ form_errors(formProduct.image) }}
+                {{ form_label(formProduct.image,  "Image", {label_attr: {class: "prod"} } ) }}
+                {{ form_widget(formProduct.image) }}
             </div>
 
-
+            <div>
+                {{ form_label(formProduct.categories,  "Catégories", {label_attr: {class: "prod"} } ) }}
+                {{ form_errors(formProduct.categories) }}
+                {{ form_widget(formProduct.categories) }}
+            </div>
 
             <div class="box-footer">
                 <button class="btn btn-info">Envoyer</button>

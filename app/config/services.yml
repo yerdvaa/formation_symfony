@@ -15,8 +15,13 @@ services:
         class: adminBundle\Service\UploadService
         arguments: ["@admin.service.utils.string", "%upload_dir%"]
 
+    admin.service.unlink:
+        class: adminBundle\Service\UnlinkService
+        arguments: [ "%upload_dir%" ]
+
     admin.listener.product:
         class: adminBundle\Listener\ProductListener
-        arguments: ["@admin.service.upload"]
+        arguments: ["@admin.service.upload", "@admin.service.unlink"]
         tags:
             - { name: doctrine.orm.entity_listener }
+

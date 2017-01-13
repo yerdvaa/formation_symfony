@@ -10,6 +10,7 @@ namespace adminBundle\Listener;
 
 
 use adminBundle\Entity\Product;
+use adminBundle\Service\UnlinkService;
 use adminBundle\Service\UploadService;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -18,10 +19,15 @@ use Doctrine\ORM\Event\PreUpdateEventArgs;
 class ProductListener
 {
     private $uploadService;
+    private $oldImage;
+    //private $uploadDir;
+    private $unlinkService;
 
-    public function __construct(UploadService $uploadService)
+    public function __construct(UploadService $uploadService, UnlinkService $unlinkService)
     {
         $this->uploadService = $uploadService;
+        //$this->uploadDir = $uploadDir;
+        $this->unlinkService = $unlinkService;
     }
 
     public function postPersist(Product $entity, LifecycleEventArgs $args)
@@ -44,7 +50,7 @@ class ProductListener
 
         if(empty($image))
         {
-            $filename = "defaut.jpeg";
+            $filename = "defaut.jpg";
         }
         else
         {
@@ -59,5 +65,43 @@ class ProductListener
     {
         $dateEdited = new \DateTime('now');
         $entity->setDateEdit($dateEdited);
+        // image
+        $image = $entity->getImage();
+
+        if(empty($image))
+        {
+            $filename = $this->oldImage;
+        }
+        else
+        {
+
+            $filename = $this->uploadService->upload($image);
+        }
+
+        $entity->setImage($filename);
     }
+
+    public function postUpdate(Product $entity, LifecycleEventArgs $args)
+    {
+        $imageDefault = "defaut.jpg";
+        if(($this->oldImage != $entity->getImage()) && $this->oldImage != $imageDefault)
+        {
+            $this->unlinkService->remove($this->oldImage);
+        }
+    }
+
+    public function postLoad(Product $entity, LifecycleEventArgs $args)
+    {
+       $this->oldImage = $entity->getImage();
+    }
+
+    public function postRemove(Product $entity, LifecycleEventArgs $args)
+    {
+        $imageDefault = "defaut.jpg";
+        if(($this->oldImage != $entity->getImage()) && $this->oldImage != $imageDefault)
+        {
+            $this->unlinkService->remove($this->oldImage);
+        }
+    }
+
 }

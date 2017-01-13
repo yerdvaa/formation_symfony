@@ -34,7 +34,9 @@ class ProductType extends AbstractType
                   'expanded' => true,
                   'multiple' => true
             ])
-            ->add('image', FileType::class);
+            ->add('image', FileType::class, [
+                'data_class' => null
+            ]);
     }
     
     /**

@@ -38,6 +38,7 @@
                 {{ form_label(formProduct.image,  "Image", {label_attr: {class: "prod"} } ) }}
                 {{ form_widget(formProduct.image) }}
             </div>
+            <p><img style="width:100px" src="{{ asset("upload/" ~ product.image) }}" alt="juste vide"></p>
 
             <div>
                 {{ form_label(formProduct.categories,  "Catégories", {label_attr: {class: "prod"} } ) }}

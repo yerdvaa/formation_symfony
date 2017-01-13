@@ -66,50 +66,6 @@ class ProductController extends Controller
 
     public function showAction($id)
     {
-        //die (dump($id));
-        /*
-         * Avant la création de la bdd
-         $products = [
-            [
-                "id" => 1,
-                "title" => "Mon premier produit",
-                "description" => "lorem ipsum",
-                "date_created" => new \DateTime('now'),
-                "prix" => 10
-            ],
-            [
-                "id" => 2,
-                "title" => "Mon deuxième produit",
-                "description" => "lorem ipsum",
-                "date_created" => new \DateTime('now'),
-                "prix" => 20
-            ],
-            [
-                "id" => 3,
-                "title" => "Mon troisième produit",
-                "description" => "lorem ipsum",
-                "date_created" => new \DateTime('now'),
-                "prix" => 30
-            ],
-            [
-                "id" => 4,
-                "title" => "",
-                "description" => "lorem ipsum",
-                "date_created" => new \DateTime('now'),
-                "prix" => 410
-            ],
-        ];
-
-        $produit=[];
-
-        foreach ($products as $p)
-        {
-
-            if($p["id"] == $id)
-            {
-                $produit= $p;
-            }
-        }*/
 
         $em = $this->getDoctrine()->getManager();
         $products = $em->getRepository("adminBundle:Product")
@@ -174,7 +130,7 @@ class ProductController extends Controller
 
         }
 
-        return $this->render('Product/create.html.twig', ['formProduct' => $formProduct->createView()]);
+        return $this->render('Product/create.html.twig', ['formProduct' => $formProduct->createView(), 'product' => $product]);
     }
 
     /**
@@ -186,7 +142,7 @@ class ProductController extends Controller
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getRepository("adminBundle:Product");
         $product = $em->find($id);
-
+        //die(dump($product));
         // Vérification si le produit est bien en BDD
         if (!$product) {
             throw $this->createNotFoundException("Le produit n'existe pas");
@@ -215,7 +171,7 @@ class ProductController extends Controller
 
         }
 
-        return $this->render('Product/edit.html.twig', ['formProduct' => $formProduct->createView()]);
+        return $this->render('Product/edit.html.twig', ['formProduct' => $formProduct->createView(), 'product' => $product]);
     }
 
     /**

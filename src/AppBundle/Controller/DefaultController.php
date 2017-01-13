@@ -36,7 +36,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/products", name="products")
+     * @Route("/products-old", name="products")
      */
 
     public function productsAction(Request $request)

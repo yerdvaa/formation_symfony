@@ -64,7 +64,7 @@ class ProductController extends Controller
      * @Route("/products/{id}", name="show_product", requirements={"id" = "\d+"})
      */
 
-    public function showAction($id)
+    public function showAction(d$i)
     {
 
         $em = $this->getDoctrine()->getManager();

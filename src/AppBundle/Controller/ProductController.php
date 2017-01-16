@@ -15,11 +15,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ProductController extends Controller
 {
     /**
-     * @Route("/products", name="app.products")
+     * @Route("/show_products/{id}", name="showProduct", requirements={"id" = "\d+"})
      */
 
-    public function ProductsAction()
+    public function showProduct($id)
     {
-        return $this->render('Public/Product/index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository("adminBundle:Product")
+            ->find($id);
+
+        if (empty($product)) {
+            throw $this->createNotFoundException("Le produit n'existe pas");
+        }
+
+        return $this->render('Public/Main/product.html.twig',
+            [
+                "product" => $product,
+            ]);
     }
 }

@@ -108,6 +108,8 @@ class Product
      */
     private $image;
 
+
+
     /**
      * Get id
      *
@@ -353,4 +355,5 @@ class Product
     {
         return $this->image;
     }
+
 }

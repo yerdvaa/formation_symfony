@@ -27,11 +27,11 @@ class AppExtension extends \Twig_Extension
         // retourne une liste de nouvelle fonctions sous forme de tableau
         // il faut créer autant de new \Twig_single fonction que de nouvelles fonctions
         return [
-            new \Twig_SimpleFunction('ma_fonction', [$this, 'maFonction'])
+            new \Twig_SimpleFunction('list_categories', [$this, 'listCategories'])
         ];
     }
 
-    public function maFonction()
+    public function listCategories()
     {
         $results = $this->doctrine->getRepository('adminBundle:Categorie')->findAll();
 

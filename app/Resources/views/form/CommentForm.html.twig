@@ -1,0 +1,11 @@
+{% block form %}
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                {{ form_label(formComment.title,  "Nom du produit", {label_attr: {class: "prod"} } ) }}
+                {{ form_errors(formProduct.title) }}
+                {{ form_widget(formProduct.title, {attr: { class: "form-control"} } ) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

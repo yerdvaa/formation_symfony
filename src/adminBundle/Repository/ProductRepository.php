@@ -130,15 +130,46 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         //die(dump($query->getResult()));
     }
 
-    public function PriceMaxQuantityMax()
+    public function PriceMax()
     {
         $query = $this->getEntityManager()
             ->createQueryBuilder()
-                        ->select((MAX('prod.price')),(MAX('prod.quantity')) )
+
+                        ->select('prod')
                         ->from('adminBundle:Product', 'prod')
+                        ->orderBy('prod.price', 'DESC')
+                        ->setMaxResults(6)
                         ->getQuery()
                     ;
-        //die(dump($query->getResult()));
+        return $query->getResult();
     }
 
+    public function QuantityMax()
+    {
+        $query = $this->getEntityManager()
+            ->createQueryBuilder()
+
+            ->select('prod')
+            ->from('adminBundle:Product', 'prod')
+            ->orderBy('prod.quantity', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+        ;
+        return $query->getResult();
+    }
+
+    // Afficher les produits selon leur catégories
+    public function myFindProductionSelonCategorie($categorie_id, $offset)
+    {
+        $results = $this
+            ->createQueryBuilder('p')
+            ->join('p.categories', 'c')
+            ->where('c.id = :idCat')
+            ->setParameters(['idCat' => $categorie_id])
+            ->setFirstResult($offset)
+            ->setMaxResults(4)
+            ->getQuery()
+            ->getResult();
+        return $results;
+    }
 }

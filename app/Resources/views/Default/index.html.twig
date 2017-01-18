@@ -19,7 +19,10 @@
                     <div class="small-box bg-aqua">
                         <div class="inner">
                             <h3>150</h3>
-
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <p><a href="{{ url('admin') }}">Accès à l'administration</a></p>
+                                <p>Connecté</p>
+                            {% endif %}
                             <p>New Orders</p>
                         </div>
                         <div class="icon">

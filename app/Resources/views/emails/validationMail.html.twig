@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Envoi mail</title>
+    </head>
+    <body>
+        <h1>Validation de votre compte utilisateur</h1>
+        <p>Bonjour {{ data.username }}</p>
+        <p>Votre adresse mail est {{ data.email }}</p>
+        <p>Vous venez de créer votre compte utilisateur. Merci de valider votre compte.</p>
+
+        <p>Pour finaliser votre inscription, merci de cliquer sur le lien:
+           <a href="http://localhost/symfony/web/app_dev.php/confirmation/{{ data.token }}/{{ data.id }}">Cliquer ici</a> </p>
+        <p>http://localhost/symfony/web/app_dev.php/confirmation/{{ data.token }}/{{ data.id }}</p>
+
+    </body>
+
+</html>

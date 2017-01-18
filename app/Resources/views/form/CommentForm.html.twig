@@ -1,11 +1,32 @@
-{% block form %}
-    <div class="row">
-        <div class="col-md-12">
-            <div>
-                {{ form_label(formComment.title,  "Nom du produit", {label_attr: {class: "prod"} } ) }}
-                {{ form_errors(formProduct.title) }}
-                {{ form_widget(formProduct.title, {attr: { class: "form-control"} } ) }}
+{% extends "public.layout.html.twig" %}
+
+{% block content %}
+    {% block form %}
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_start(formComment, {attr:{ novalidate:"novalidate"}}) }}
+                <div>
+                    {{ form_label(formComment.author,  "Pseudo", {label_attr: {class: "pseudo"} } ) }}
+                    {{ form_errors(formComment.author) }}
+                    {{ form_widget(formComment.author, {attr: { class: "form-control"} } ) }}
+                </div>
+                <div>
+                    {{ form_label(formComment.content,  "Commentaire", {label_attr: {class: "content"} } ) }}
+                    {{ form_errors(formComment.content) }}
+                    {{ form_widget(formComment.content, {attr: { class: "form-control"} } ) }}
+                </div>
+                <div>
+                    {{ form_label(formComment.score,  "Note", {label_attr: {class: "note"} } ) }}
+                    {{ form_errors(formComment.score) }}
+                    {{ form_widget(formComment.score, {attr: { class: "form-control"} } ) }}
+                </div>
+                <div class="box-footer">
+                    <button class="btn btn-info">Envoyer</button>
+
+                </div>
+
+                {{ form_end(formComment) }}
             </div>
         </div>
-    </div>
+    {% endblock %}
 {% endblock %}

@@ -1,0 +1,32 @@
+{% extends "public.layout.html.twig" %}
+
+{% block content %}
+    {% block form %}
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_start(formUser, {attr:{ novalidate:"novalidate"}}) }}
+                <div>
+                    {{ form_label(formUser.username,  "Pseudo", {label_attr: {class: "pseudo"} } ) }}
+                    {{ form_errors(formUser.username) }}
+                    {{ form_widget(formUser.username, {attr: { class: "form-control"} } ) }}
+                </div>
+                <div>
+                    {{ form_label(formUser.email,  "Mail", {label_attr: {class: "mail"} } ) }}
+                    {{ form_errors(formUser.email) }}
+                    {{ form_widget(formUser.email, {attr: { class: "form-control"} } ) }}
+                </div>
+                <div>
+                    {{ form_label(formUser.password,  "Mot de passe", {label_attr: {class: "mdp"} } ) }}
+                    {{ form_errors(formUser.password) }}
+                    {{ form_widget(formUser.password, {attr: { class: "form-control"} } ) }}
+                </div>
+
+                <div class="box-footer">
+                    <button class="btn btn-info">Créer</button>
+
+                </div>
+                {{ form_end(formUser) }}
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}

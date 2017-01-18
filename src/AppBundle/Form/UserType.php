@@ -1,22 +1,25 @@
 <?php
 
-namespace adminBundle\Form;
+namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CommentType extends AbstractType
+class UserType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('author')
-            ->add('content')
-            ->add('score')
-        ;
+        $builder
+            ->add('username')
+            ->add('password', PasswordType::class)
+            ->add('email', EmailType::class )
+            ;
     }
     
     /**
@@ -25,7 +28,7 @@ class CommentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'adminBundle\Entity\Comment'
+            'data_class' => 'AppBundle\Entity\User'
         ));
     }
 
@@ -34,7 +37,7 @@ class CommentType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'adminbundle_comment';
+        return 'appbundle_user';
     }
 
 

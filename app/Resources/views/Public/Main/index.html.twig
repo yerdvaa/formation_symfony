@@ -8,7 +8,14 @@
 
     {% block content %}
 
+        <strong>
 
+            {% for flash_message in app.session.flashBag.get('success') %}
+                <div class="alert alert-info">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+        </strong>
 
             <div class="col-md-9">
 

@@ -19,13 +19,27 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="{{ path("admin") }}">Admin</a>
+                        <a href="{{ path("main") }}">Accueil</a>
                     </li>
+
                     <li>
-                        <a href="{{ path("security.login") }}">Sign In</a>
+                        <a href="{{ path("security.login") }}">Connexion</a>
                     </li>
+                {% if app.user.username is defined %}
                     <li>
-                        <a href="#">Contact</a>
+                        <a href="{{ path("profil") }}">Mon compte</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ path("createUser") }}">Créer un compte</a>
+                    </li>
+                {% endif %}
+                    <li>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <a href=" {{ path("security.logout") }}">
+                                <button type="button" class="btn btn-info">
+                                    Déconnexion</button></a>
+                        {% endif %}
                     </li>
                 </ul>
             </div>

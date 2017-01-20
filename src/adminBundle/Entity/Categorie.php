@@ -41,11 +41,6 @@ class Categorie
      *
      * @ORM\Column(name="description", type="text")
      *
-     * @Assert\NotBlank(message="Champ obligatoire")
-     *
-     * @Assert\Length(
-     *     max = 300,
-     *     maxMessage="Votre description ne peut pas avoir plus de {{ limit }} caractères.")
      */
     private $description;
 

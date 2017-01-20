@@ -33,6 +33,17 @@ class User implements UserInterface, \Serializable
      */
     private $email;
 
+     /**
+     * @ORM\Column(name="birthday", type="date")
+     */
+    private $birthday;
+
+    /**
+     * @var string
+     * @ORM\Column(name="avatar", type="string")
+     */
+    private $avatar;
+
     /**
      * @ORM\Column(name="is_active", type="boolean")
      */
@@ -247,5 +258,53 @@ class User implements UserInterface, \Serializable
     public function getToken()
     {
         return $this->token;
+    }
+
+    /**
+     * Set birthday
+     *
+     * @param \DateTime $birthday
+     *
+     * @return User
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    /**
+     * Get birthday
+     *
+     * @return \DateTime
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param string $avatar
+     *
+     * @return User
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 }

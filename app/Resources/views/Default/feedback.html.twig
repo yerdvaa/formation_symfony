@@ -3,6 +3,9 @@
     <li class="active">Feedback</li>
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
 
 {% block content %}
 
@@ -18,12 +21,7 @@
 
     <div class="box box-info">
         <div class="box-body">
-            {#{% form_theme   formFeedback   _self %}
 
-            {%- block form_label -%}
-                <strong>Modification de l'affichage d'un label</strong>
-            {%- endblock form_label -%}
-            #}
 
             {{ form_start(formFeedback, {attr:{ novalidate:"novalidate"}}) }}
             <div>
@@ -59,10 +57,10 @@
             </div>
 
 
-            <div>
+            <div class="input-group date">
                 {{ form_label(formFeedback.datebug, "Date de l'anomalie") }}<br>
                 {{ form_errors(formFeedback.datebug) }}
-                {{ form_widget(formFeedback.datebug, {attr: {class: "datepicker form-control"} }) }}
+                {{ form_widget(formFeedback.datebug, {attr: {class: "datepicker"} }) }}
 
 
             </div>
@@ -81,4 +79,7 @@
             {{ form_end(formFeedback) }}
         </div>
     </div>
+{% endblock %}
+{% block javascript %}
+    {{ parent() }}
 {% endblock %}

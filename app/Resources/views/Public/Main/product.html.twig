@@ -41,7 +41,7 @@
                         <div class="text-right">
                             <a href="{{ path("comment", {id:product.id})}}"class="btn btn-success">Laisser un commentaire</a>
                         </div>
-        {#{% for comments in comment %}
+        {% for comments in comment %}
                         <hr>
                         <div class="row">
                             <div class="col-md-12">
@@ -56,7 +56,7 @@
                                 <p>{{ comments.content }}</p>
                             </div>
                         </div>
-        {% endfor %}#}
+        {% endfor %}
 
             {% block form %} {% endblock %}
 

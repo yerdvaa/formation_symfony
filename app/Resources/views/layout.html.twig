@@ -294,7 +294,13 @@
                 <div class="pull-left info">
                     <p>{{ app.user.username }}</p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    <p>
+                        <a href="{{ path("profil") }}">Mon compte</a>
+                    </p>
+
+
                 </div>
+
             </div>
             <!-- search form -->
             <form action="#" method="get" class="sidebar-form">
@@ -322,6 +328,12 @@
 
                     </ul>
                 </li>
+                <li class="treeview {% if app.request.get('_route') == "main" %} active {% endif %}">
+                    <a href="{{ path("main") }}">
+                        <i class="fa fa-files-o"></i>
+                        <span>Accueil du Site</span></a>
+                </li>
+
                 <li class="treeview {% if app.request.get('_route') == "product" %} active {% endif %}">
                     <a href="{{ path("product") }}">
                         <i class="fa fa-files-o"></i>

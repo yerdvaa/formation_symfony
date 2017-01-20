@@ -18,3 +18,15 @@
     {% include "form/CategoryForm.html.twig" %}
 
 {% endblock content %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <!-- ckEditor -->
+    <script src="{{ asset("plugins/ckeditor/ckeditor.js") }}"></script>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace( 'adminbundle_categorie_title' );
+    </script>
+{% endblock %}

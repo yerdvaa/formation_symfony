@@ -1,0 +1,24 @@
+{% extends "public.layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Custom CSS -->
+    <link href="{{ asset("public/css/shop-homepage.css") }}" rel="stylesheet">
+{% endblock %}
+
+
+
+{% block content %}
+    <h4>Pseudo : <strong>{{ user.username }}</strong></h4>
+    {% if user.avatar is defined %}
+    <p><img style="width:100px" src="{{ asset("upload/" ~ user.avatar) }}" alt=""></p>
+    {% else %}
+    <p><img style="width:100px" src="{{ asset("upload/avatar.jpg") }}" alt=""></p>
+    {% endif %}
+    <p>Date d'anniversaire: {{ user.birthday |date("d/m/y")}}</p>
+    <p>Email: {{ user.email }}</p>
+
+
+
+{% endblock %}
+

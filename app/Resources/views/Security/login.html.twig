@@ -4,6 +4,8 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <!-- Custom CSS -->
+    <link href="{{ asset("public/css/shop-homepage.css") }}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -22,6 +24,8 @@
     <label for="password">Password:</label>
     <input type="password" id="password" name="_password" />
 
+
+
     {#
         If you want to control the URL the user
         is redirected to on success (more details below)
@@ -30,9 +34,6 @@
 
     <button type="submit">login</button>
 
-    <a href=" {{ path("createUser") }}">
-        <button type="button" class="btn btn-info">
-            Créer un compte</button></a>
 
 </form>
              </div>

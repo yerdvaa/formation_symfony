@@ -1,5 +1,9 @@
 {% extends "public.layout.html.twig" %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("plugins/datepicker/datepicker3.css") }}">
+{% endblock %}
+
 {% block content %}
     {% block form %}
         <div class="row">
@@ -20,6 +24,17 @@
                     {{ form_errors(formUser.password) }}
                     {{ form_widget(formUser.password, {attr: { class: "form-control"} } ) }}
                 </div>
+                <div>
+                    {{ form_label(formUser.birthday,  "Date anniversaire" ) }}
+                    {{ form_errors(formUser.birthday) }}
+                    {{ form_widget(formUser.birthday, {attr: { class: "datepicker form-control"} } ) }}
+                </div>
+                <div>
+                    {{ form_label(formUser.avatar,  "Photo de profil", {label_attr: {class: "mdp"} } ) }}
+                    {{ form_errors(formUser.avatar) }}
+                    {{ form_widget(formUser.avatar) }}
+                </div>
+                <p><img style="width:100px" src="{{ asset("upload/" ~ user.avatar) }}" alt="juste vide"></p>
 
                 <div class="box-footer">
                     <button class="btn btn-info">Créer</button>
@@ -29,4 +44,26 @@
             </div>
         </div>
     {% endblock %}
+{% endblock %}
+
+{% block javascript %}
+    <!-- jQuery -->
+    <script src="{{ asset("public/js/jquery.js") }}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ asset("public/js/bootstrap.min.js") }}"></script>
+
+    <!-- daterangepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+    <script src="{{ asset("plugins/daterangepicker/daterangepicker.js") }}"></script>
+    <!-- datepicker -->
+    <script src="{{ asset("plugins/datepicker/bootstrap-datepicker.js") }}"></script>
+    <script src="{{ asset('plugins/datepicker/locales/bootstrap-datepicker.fr.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $(".datepicker").datepicker( {
+                language: 'fr'
+            });
+        });
+    </script>
 {% endblock %}

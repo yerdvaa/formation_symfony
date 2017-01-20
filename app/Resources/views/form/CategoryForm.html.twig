@@ -15,12 +15,13 @@
             {{ form_widget(formCategorie.description, {attr: {placeholder: "Description de la catégorie", class: "form-control"} }) }}
         </div>
 
+        {% if formCategorie.position is defined %}
         <div>
             {{ form_label(formCategorie.position,  "Position", {label_attr: {class: "cat"} } ) }}
             {{ form_errors(formCategorie.position) }}
             {{ form_widget(formCategorie.position, {attr: { class: "form-control"} } ) }}
         </div>
-
+        {% endif %}
 
         <div class="box-footer">
             <button class="btn btn-info">Envoyer</button>

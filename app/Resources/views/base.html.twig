@@ -73,11 +73,13 @@
     <script>
 
         $(document).ready(function() {
-            $('.datepicker').datepicker(
-                    {
-                        format:'dd-mm-yyyy'
-                    }
-            );
+            $(document).ready(function() {
+                $(".datepicker").datepicker(
+                        {
+                            format: 'dd-mm-yyyy'
+                        }
+                );
+            });
 
 
             $('.table').on('click', '.btn-danger',function(event) {

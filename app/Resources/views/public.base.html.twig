@@ -10,12 +10,9 @@
     <meta name="author" content="">
 
     <title>Shop Homepage - Start Bootstrap Template</title>
-    {% block stylesheets %}
-    <!-- Bootstrap Core CSS -->
     <link href="{{ asset("public/css/bootstrap.min.css") }}" rel="stylesheet">
-
-
-    {% endblock %}
+    <!-- Bootstrap Core CSS -->
+    {% block stylesheets %}{% endblock %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -32,13 +29,8 @@
 
 {% endblock %}
 
-{% block javascript %}
-<!-- jQuery -->
-<script src="{{ asset("public/js/jquery.js") }}"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="{{ asset("public/js/bootstrap.min.js") }}"></script>
-{% endblock %}
+{% block javascript %}{% endblock %}
 
 </body>
 

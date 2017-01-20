@@ -39,6 +39,17 @@ class SecurityController extends Controller
     }
 
     /**
+     * @Route("/redirect-after-login", name="security.redirect.after.login")
+     */
+    public function redirectAfterLoginAction(){
+        if($this->isGranted('ROLE_ADMIN')){
+            return $this->redirectToRoute('admin');
+        } else{
+            return $this->redirectToRoute('main');
+        }
+    }
+
+    /**
      * @Route("createUser", name="createUser")
      */
     public function CreateUserAction(Request $request)

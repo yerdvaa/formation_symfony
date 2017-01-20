@@ -33,13 +33,24 @@ class User implements UserInterface, \Serializable
      */
     private $email;
 
+     /**
+     * @ORM\Column(name="birthday", type="date")
+     */
+    private $birthday;
+
+    /**
+     * @var string
+     * @ORM\Column(name="avatar", type="string")
+     */
+    private $avatar;
+
     /**
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
 
     /**
-     * @ORM\Column(type="string", length=25)
+     * @ORM\Column(type="string", length=32)
      */
     private $token;
 
@@ -223,5 +234,29 @@ class User implements UserInterface, \Serializable
     public function removeRole(\AppBundle\Entity\Role $role)
     {
         $this->roles->removeElement($role);
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     *
+     * @return User
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 }

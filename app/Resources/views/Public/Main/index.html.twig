@@ -59,9 +59,9 @@
                             <img src="{{ asset("upload/" ~ product.image) }}" alt="">
                             <div class="caption">
                                 <h4 class="pull-right">{{ product.price }} €</h4>
-                                <h4><a href="{{ path("showProduct",{id:product.id}) }}">{{ product.title }}</a>
+                                <h4><a href="{{ path("showProduct",{id:product.id}) }}">{{ product.titleFR }}</a>
                                 </h4>
-                                <p>{{ product.description }}<a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
+                                <p>{{ product.descriptionFR }}<a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
                             </div>
                             <div class="ratings">
                                 <p class="pull-right">15 reviews</p>

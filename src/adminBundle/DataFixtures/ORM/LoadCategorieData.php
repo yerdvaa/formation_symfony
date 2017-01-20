@@ -15,8 +15,8 @@ class LoadCategorieData extends AbstractFixture implements OrderedFixtureInterfa
         for($i = 1; $i < 5; $i++)
         {
             $cat = new Categorie();
-            $cat->setTitle('Produit '.$i)
-                ->setDescription("C'est le produit ".$i)
+            $cat->setTitle('Catégorie '.$i)
+                ->setDescription("C'est la catégorie ".$i)
                 ->setPosition($i)
                 ->setActive(rand(0,1))
                 ;

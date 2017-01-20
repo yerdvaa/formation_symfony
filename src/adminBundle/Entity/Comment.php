@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="adminBundle\Repository\CommentRepository")
+ * @ORM\EntityListeners({"adminBundle\Listener\CommentListener"})
  */
 class Comment
 {

@@ -4,16 +4,28 @@
             {{ form_start(formProduct, {attr:{ novalidate:"novalidate"}}) }}
 
             <div>
-                {{ form_label(formProduct.title,  "Nom du produit", {label_attr: {class: "prod"} } ) }}
-                {{ form_errors(formProduct.title) }}
-                {{ form_widget(formProduct.title, {attr: { class: "form-control"} } ) }}
+                {{ form_label(formProduct.titleFR,  "Nom du produit", {label_attr: {class: "prod"} } ) }}
+                {{ form_errors(formProduct.titleFR) }}
+                {{ form_widget(formProduct.titleFR, {attr: { class: "form-control"} } ) }}
+            </div>
+            <div>
+                {{ form_label(formProduct.titleEN,  "Product Name", {label_attr: {class: "prod"} } ) }}
+                {{ form_errors(formProduct.titleEN) }}
+                {{ form_widget(formProduct.titleEN, {attr: { class: "form-control"} } ) }}
             </div>
 
             <div>
-                {{ form_label(formProduct.description, "Description",{label_attr: {class: "le-nom-de-votre-class"} }) }}<br>
-                {{ form_errors(formProduct.description) }}
-                {{ form_widget(formProduct.description, {attr: {placeholder: "Description du produit", class: "form-control"} }) }}
+                {{ form_label(formProduct.descriptionFR, "Description",{label_attr: {class: "le-nom-de-votre-class"} }) }}<br>
+                {{ form_errors(formProduct.descriptionFR) }}
+                {{ form_widget(formProduct.descriptionFR, {attr: {placeholder: "Description du produit", class: "form-control"} }) }}
             </div>
+
+            <div>
+                {{ form_label(formProduct.descriptionEN, "Description",{label_attr: {class: "le-nom-de-votre-class"} }) }}<br>
+                {{ form_errors(formProduct.descriptionEN) }}
+                {{ form_widget(formProduct.descriptionEN, {attr: {placeholder: "Description du produit", class: "form-control"} }) }}
+            </div>
+
 
             <div>
                 {{ form_label(formProduct.price,  "Prix", {label_attr: {class: "prod"} } ) }}

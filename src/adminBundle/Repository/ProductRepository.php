@@ -34,7 +34,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
     public function findProduct()
     {
         $result = $this->createQueryBuilder('product')
-                    ->select('product.title, product.price, brand.title')
+                    ->select('product.titleFR, product.price, brand.title')
                     ->join('product.marque','brand')
                     ->where('product.price > :prix')
                     ->andWhere('brand.title LIKE :nomMarque')
@@ -158,6 +158,22 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
+    public function findProductByLocale($id, $locale)
+    {
+        $locale = strtoupper($locale);
+        $result = $this->createQueryBuilder('product')
+            ->select('product.id', "product.title$locale", "product.description$locale")
+            ->where('product.id = :id')
+            ->setParameters([
+                'id' => $id
+            ])
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        return $result;
+    }
+
+
     // Afficher les produits selon leur catégories
     public function myFindProductionSelonCategorie($categorie_id, $offset)
     {
@@ -172,4 +188,18 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
         return $results;
     }
+
+    // Afficher les commentaires selon les produits
+   /*public function commentProduct($comment_id)
+    {
+        $results = $this
+            ->createQueryBuilder('comment')
+            ->join('product')
+            ->where('comment.id_product = :idComment')
+            ->setParameters(['idComment' => $comment_id])
+            ->getQuery()
+            ->getResult();
+        return $results;
+    }*/
+
 }

@@ -16,7 +16,7 @@ class CommentListener
 {
     public function prePersist(Comment $entity, LifecycleEventArgs $args)
     {
-        $date = new \DateTime('now');
-        $entity->setCreateAt($date);
+        $dateCreated = new \DateTime('now');
+        $entity->setCreateAt($dateCreated);
     }
 }

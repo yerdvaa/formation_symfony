@@ -16,10 +16,10 @@ class CommentController extends Controller
      * @Route("comment/{id}", name="comment", requirements={"id" = "\d+"})
      */
 
-    public function commentAction(Request $request, Product $idProduct)
+    public function commentAction(Request $request, Product $id)
     {
         $comment = new Comment();
-        $comment->setProduct($idProduct);
+        $comment->setProduct($id);
         $formComment = $this->createForm(CommentType::class, $comment);
         $formComment->handleRequest($request);
 
@@ -36,6 +36,7 @@ class CommentController extends Controller
             return $this->redirectToRoute('main');
         }
 
-            return $this->render('form/CommentForm.html.twig', ['formComment' => $formComment->createView(), 'comment' => $comment, 'product' => $idProduct]);
+            return $this->render('form/CommentForm.html.twig', ['formComment' => $formComment->createView(), 'comment' => $comment, 'product' => $id]);
     }
+
 }

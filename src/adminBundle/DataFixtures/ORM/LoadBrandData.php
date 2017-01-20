@@ -15,7 +15,7 @@ class LoadBrandData extends AbstractFixture implements OrderedFixtureInterface
         for($i = 1; $i < 5; $i++)
         {
             $brand = new Brand();
-            $brand->setTitle('Produit '.$i);
+            $brand->setTitle('Marque '.$i);
 
 
             $manager->persist($brand);

@@ -24,6 +24,9 @@ class ProductController extends Controller
         $product = $em->getRepository("adminBundle:Product")
             ->find($id);
 
+        /*$comment = $em->getRepository("adminBundle:Product")
+            ->commentProduct($comment->getId_Product());*/
+
         if (empty($product)) {
             throw $this->createNotFoundException("Le produit n'existe pas");
         }
@@ -31,6 +34,8 @@ class ProductController extends Controller
         return $this->render('Public/Main/product.html.twig',
             [
                 "product" => $product,
+               // "comment" => $comment,
             ]);
     }
+
 }

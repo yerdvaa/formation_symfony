@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    {% block form %}
+   
         <div class="row">
             <div class="col-md-12">
                 {{ form_start(formUser, {attr:{ novalidate:"novalidate"}}) }}
@@ -24,11 +24,13 @@
                     {{ form_errors(formUser.password) }}
                     {{ form_widget(formUser.password, {attr: { class: "form-control"} } ) }}
                 </div>
+                {% if formUser.birthday is defined %}
                 <div>
                     {{ form_label(formUser.birthday,  "Date anniversaire" ) }}
                     {{ form_errors(formUser.birthday) }}
                     {{ form_widget(formUser.birthday, {attr: { class: "datepicker form-control"} } ) }}
                 </div>
+                {% endif %}
                 <div>
                     {{ form_label(formUser.avatar,  "Photo de profil", {label_attr: {class: "mdp"} } ) }}
                     {{ form_errors(formUser.avatar) }}
@@ -37,13 +39,16 @@
                 <p><img style="width:100px" src="{{ asset("upload/" ~ user.avatar) }}" alt="juste vide"></p>
 
                 <div class="box-footer">
-                    <button class="btn btn-info">Créer</button>
-
+                    {% if app.request.get('_route') == "createUser" %}
+                        <button class="btn btn-info">Créer</button>
+                    {% else %}
+                        <button class="btn btn-info">Modifier</button>
+                    {% endif %}
                 </div>
                 {{ form_end(formUser) }}
             </div>
         </div>
-    {% endblock %}
+   
 {% endblock %}
 
 {% block javascript %}
@@ -58,11 +63,12 @@
     <script src="{{ asset("plugins/daterangepicker/daterangepicker.js") }}"></script>
     <!-- datepicker -->
     <script src="{{ asset("plugins/datepicker/bootstrap-datepicker.js") }}"></script>
-    <script src="{{ asset('plugins/datepicker/locales/bootstrap-datepicker.fr.js') }}"></script>
+    <script src="{{ asset('plugins/datepicker/locales/bootstrap-datepicker.en.js') }}"></script>
     <script>
         $(document).ready(function() {
             $(".datepicker").datepicker( {
-                language: 'fr'
+                language: 'en',
+                format: 'yyyy-MM-dd'
             });
         });
     </script>

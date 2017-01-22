@@ -10,15 +10,15 @@
 
 {% block content %}
     <h4>Pseudo : <strong>{{ user.username }}</strong></h4>
-    {% if user.avatar is defined %}
+    {% if app.user.avatar is defined %}
     <p><img style="width:100px" src="{{ asset("upload/" ~ user.avatar) }}" alt=""></p>
     {% else %}
     <p><img style="width:100px" src="{{ asset("upload/avatar.jpg") }}" alt=""></p>
     {% endif %}
-    <p>Date d'anniversaire: {{ user.birthday |date("d/m/y")}}</p>
+    <p>Date d'anniversaire: {{ user.birthday |date("d/m/Y")}}</p>
     <p>Email: {{ user.email }}</p>
 
 
-
+    <a href="{{ path("edit_profil") }}"><button type="button" class="btn btn-info">Modifier</button></a>
 {% endblock %}
 

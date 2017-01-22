@@ -54,8 +54,8 @@ class SecurityController extends Controller
      */
     public function CreateUserAction(Request $request)
     {
-        $user = new User();
-        $formUser = $this->createForm(UserType::class, $user);
+        $data = new User();
+        $formUser = $this->createForm(UserType::class, $data);
         $formUser->handleRequest($request);
 
         $doctrine = $this->getDoctrine();
@@ -80,6 +80,7 @@ class SecurityController extends Controller
             $data->addRole($role)
                  ->setIsActive(0)
                  ->setToken($token);
+                
 
 
            // die(dump($data));
@@ -87,7 +88,7 @@ class SecurityController extends Controller
 
             $em->persist($data);
             $em->flush();
-
+            
             // Envoie du mail
             $message = \Swift_Message::newInstance()
                 ->setSubject('Mail de validation')
@@ -117,7 +118,7 @@ class SecurityController extends Controller
             return $this->redirectToRoute('main');
         }
 
-        return $this->render('form/UserForm.html.twig', ['formUser' => $formUser->createView(), 'user' => $user]);
+        return $this->render('form/UserForm.html.twig', ['formUser' => $formUser->createView(), 'user' => $data]);
     }
 
 

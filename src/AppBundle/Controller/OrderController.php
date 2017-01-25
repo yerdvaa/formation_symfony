@@ -16,98 +16,53 @@ use Symfony\Component\HttpFoundation\Request;
 
 class OrderController extends Controller
 {
-    public function createOrder(Request $request)
+    public function createOrder()
     {
-        if(!$request->getSession()->has('order'))
-        {
-            $request->getSession()->set('order', [
-
-            ]);
-        }
+        $this->get('app.service.order')->createOrder('order');
     }
 
     /**
      * @Route("/add/{id}", name="add.product", requirements={"id" = "\d+"} )
      */
-    public function addProductAction(Request $request, $id)
+    public function addProductAction($id)
     {
-        //création du panier en session
-        $this->createOrder($request);
-
-        //pour ajouter un produit ds le panier
-        // $panier = copie du panier (attention ne pas oublier de l'ajouter à la session
-        $panier = $request->getSession()->get('order');
-        $qte = $request->get('qte');
-
-       // $panier[$id] = $qte;
-        //die(dump($panier));
-
-
-        // rechercher si l'id est existant (in_array)
-            if(array_key_exists($id, $panier))
-            {
-                $panier[$id] += $qte;
-
-                //die(dump($panier));
-            }
-        // si existant, recherche de sa position (array_search) dans le tableau puis incrémentation de la quantité
-            else
-            {
-                $panier[$id]= $qte;
-            }
-
-        // ajout de la copie du panier à la session
-        $request->getSession()->set('order', $panier);
-
-       // die(dump($request->getSession()->get('order')));
+        //Appel du service pour ajouter des produits (voir OrderService.php)
+        $this->get('app.service.order')->addProduct($id);
 
         return $this->redirectToRoute('main');
-
     }
 
     /**
      * @Route("/showCart", name="showCart")
      */
-    public function showCartAction(Request $request)
+    public function showCartAction()
     {
-        $panier = $request->getSession()->get('order');
-        //(die(dump($panier)));
-
-        $em= $this->getDoctrine()->getManager();
-
-        $total = 0;
-        $product = [];
-        foreach ($panier as $key => $val)
-        {
-            $product[$key] = $em->getRepository("adminBundle:Product")->find($key);
-            $product[$key]->qte = $val;
-            $total += ($product[$key]->qte) * ($product[$key]->getPrice());
-        }
+        $showCart = $this->get('app.service.order')->showcart();
 
 
         return $this->render('Public/Main/Cart.html.twig', [
-            'products' => $product,
-            'total' => $total,
+            'products' => $showCart['product'],
+            'total' => $showCart['total'],
         ]);
     }
 
 
     /**
-     * @Route("/update", name="update.product" )
+     * @Route("/update/{id}", name="update.product" )
      */
-    public function updateOrderAction(Request $request)
+    public function updateOrderAction($id)
     {
+        $this->get('app.service.order')->updateOrder($id);
 
+        return $this->redirectToRoute('showCart');
     }
 
     /**
      * @Route("/remove/{id}", name="remove.product", requirements={"id" = "\d+"} )
      */
-    public function removeProductAction($id, Request $request)
+    public function removeProductAction($id)
     {
-        $panier = $request->getSession()->get('order');
-        unset($panier[$id]);
-        $request->getSession()->set('order', $panier);
+        $this->get('app.service.order')->removeOrder($id);
 
         return $this->redirectToRoute('showCart');
     }

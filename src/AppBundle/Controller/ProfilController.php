@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\User;
+
 use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -36,6 +36,8 @@ class ProfilController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository("AppBundle:User")
                 ->find($id);
+
+
        
         // Vérification si l'user existe en BDD
         if (!$user) {
@@ -49,21 +51,22 @@ class ProfilController extends Controller
 
         if ($formUser->isSubmitted() && $formUser->isValid())
         {
-            //die(dump($user));
-           $em = $this->getDoctrine()->getManager();
-            $user = $em->getRepository("AppBundle:User")
-            
-            $em->persist($user);
-            $em->flush();
+           //die(dump($user));
+            //$em = $this->getDoctrine()->getManager();
+
+              $em->persist($user);
+              $em->flush();
 
 
 
-            //sauvegarde du user
-            $this->addFlash('success', 'Votre profil a été modifié');
+              //sauvegarde du user
+              $this->addFlash('success', 'Votre profil a été modifié');
 
-            return $this->redirectToRoute('profil');
+              return $this->redirectToRoute('profil');
 
-        }
+          }
+
+
 
         return $this->render('form/UserForm.html.twig', ['formUser' => $formUser->createView(), 'user' => $user]);
     }

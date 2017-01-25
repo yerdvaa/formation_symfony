@@ -23,6 +23,27 @@
                             <p>{{ product.descriptionFR }}</p>
                         </div>
 
+
+        <div class="box box-info">
+            <div class="box-body">
+
+                <form action ="{{ url('add.product', { 'id' : product.id }) }}">
+                    <div class="text-right">
+                        <label>Quantité</label>
+                        <input type="number" name="qte" value="1" min="1" max="10" />
+                    </div>
+
+                    <div class="box-footer text-right">
+                        <button type="submit" class="btn btn-info">Ajouter au panier</button></a>
+                    </div>
+                </form>
+
+
+
+                </form>
+            </div>
+        </div>
+
                         <div class="ratings">
                             <p class="pull-right">3 reviews</p>
                             <p>

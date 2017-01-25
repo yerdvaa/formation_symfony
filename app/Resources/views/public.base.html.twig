@@ -30,7 +30,34 @@
 {% endblock %}
 
 
-{% block javascript %}{% endblock %}
+{% block javascript %}
+    <!-- jQuery -->
+    <script src="{{ asset("public/js/jquery.js") }}"></script>
+
+    <script>
+        var btnCookie = $('.cookies a');
+        btnCookie.on('click', clicBtnCookie);
+        function clicBtnCookie(e) {
+            e.preventDefault();
+            $.ajax({
+                method: 'POST',
+                url: 'http://localhost/symfony/web/app_dev.php/disclaimer-cookies',
+                data: 'disclaimer=1', // disclaimer = avertissement
+                dataType: 'json',
+                success: onSuccess
+            })
+            $('.cookies').fadeOut("slow");
+        }
+
+        function onSuccess(data) {
+            console.log(data);
+        }
+
+
+
+
+    </script>
+{% endblock %}
 
 </body>
 

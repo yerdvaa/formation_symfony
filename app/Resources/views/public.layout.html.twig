@@ -1,6 +1,9 @@
 {% extends "public.base.html.twig" %}
 
 {% block body %}
+
+    {{ dump(app.session.get('order')) }}
+
     {% block navbar %}
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -14,6 +17,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">Start Bootstrap</a>
+
+                <a href="{{ path("showCart") }}" class="text-right"><img style="width: 50px" src="{{ asset("upload/panier.png") }}" alt="panier"></a>
+
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -45,6 +51,7 @@
                                     Déconnexion</button></a>
                         {% endif %}
                     </li>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -62,6 +69,7 @@
                     <a href="{{ path("categories", {sort:"ASC"}) }}">{{ list_categories()|raw }}</a>
                 </div>
             </div>
+
     {% block content %}
     {% endblock %}
 

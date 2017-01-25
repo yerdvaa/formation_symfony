@@ -1,0 +1,17 @@
+{% block form %}
+
+    <div class="box box-info">
+    <div class="box-body">
+    {{ form_start(formOrder, {attr:{ novalidate:"novalidate"}}) }}
+
+    <div>
+        {{ form_errors(formOrder.quantity) }}
+        {{ form_label(formOrder.quantity,  "Quantité", {label_attr: {class: "prod"} } ) }}
+        {{ form_widget(formOrder.quantity, {attr: { class: "form-control"} } ) }}
+    </div>
+
+    <div class="box-footer">
+        <a href="{{ path("product") }}"><button type="submit" class="btn btn-info">Ajouter au panier</button></a>
+    </div>
+
+{% endblock %}

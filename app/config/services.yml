@@ -13,6 +13,12 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    admin.subscriber.kernel.event:
+        class: adminBundle\Subscriber\KernelEventsSubscriber
+        arguments: [ "@twig", "@session" ]
+        tags:
+            - { name: kernel.event_subscriber }
+
     admin.subscriber.category.form:
         class: adminBundle\Subscriber\CategoryFormSubscriber
         tags:

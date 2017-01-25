@@ -29,17 +29,17 @@ class UserListener
        // avatar
         $avatar = $entity->getAvatar();
 
-        if(empty($avatar))
+        /*if(empty($avatar))
         {
             $filename = "avatar.jpg";
             die(dump($filename));
         }
         else
-        {
+        {*/
 
             $filename = $this->uploadService->upload($avatar);
-            die(dump($filename));
-        }
+            //die(dump($filename));
+        //}
 
         $entity->setAvatar($filename);
     }
@@ -48,18 +48,17 @@ class UserListener
     {
         // avatar
         $avatar = $entity->getAvatar();
+        //dump($this->oldAvatar, $avatar); exit;
 
-        if(empty($avatar))
+        if($this->oldAvatar != $avatar)
         {
-            $filename = $this->oldAvatar;
-        }
-        else
-        {
-
             $filename = $this->uploadService->upload($avatar);
+
+            $entity->setAvatar($filename);
         }
 
-        $entity->setAvatar($filename);
+
+
     }
 
     public function postUpdate(User $entity, LifecycleEventArgs $args)

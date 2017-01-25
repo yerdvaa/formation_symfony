@@ -4,10 +4,13 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\EntityListeners({"AppBundle\Listener\UserListener"})
+ *
  */
 class User implements UserInterface, \Serializable
 {
@@ -25,6 +28,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank(message="Champ obligatoire")
      */
     private $password;
 

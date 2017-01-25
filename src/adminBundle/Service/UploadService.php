@@ -18,6 +18,7 @@ class UploadService
 
     public function upload($image)
     {
+        //die(dump($image));
         $fileName = $this->stringUtilsService->generateUniqId(). '.' . $image->guessExtension();
         $image->move($this->uploadDir , $fileName);
         return $fileName;

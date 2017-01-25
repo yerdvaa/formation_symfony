@@ -1,0 +1,12 @@
+{% extends "public.layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Custom CSS -->
+    <link href="{{ asset("public/css/shop-homepage.css") }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <h1>Site en maintenance</h1>
+    <img src="{{ asset("upload/erreur.jpg") }}" alt="Erreur de connexion">
+{% endblock %}

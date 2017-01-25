@@ -189,17 +189,16 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return $results;
     }
 
-    // Afficher les commentaires selon les produits
-   /*public function commentProduct($comment_id)
+    public function searchProduct($saisie)
     {
-        $results = $this
-            ->createQueryBuilder('comment')
-            ->join('product')
-            ->where('comment.id_product = :idComment')
-            ->setParameters(['idComment' => $comment_id])
+        $result = $this->createQueryBuilder('product')
+            ->select('product')
+            ->where('product.titleFR LIKE :saisie')
+            ->setParameters(['saisie'=> '%'.$saisie.'%'])
             ->getQuery()
             ->getResult();
-        return $results;
-    }*/
+        //dump($result);exit;
+        return $result;
+    }
 
 }

@@ -12,6 +12,12 @@
                 <img style="width: 80px" src="{{ asset("upload/panier.png") }}" alt="panier">
                 Votre panier:</h3>
 
+            {% for flash_message in app.session.flashBag.get('success') %}
+                <div class="alert alert-info">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+
             <div class="box box-body">
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>

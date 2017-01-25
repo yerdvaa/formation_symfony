@@ -12,6 +12,10 @@
     <title>Shop Homepage - Start Bootstrap Template</title>
     <link href="{{ asset("public/css/bootstrap.min.css") }}" rel="stylesheet">
     <!-- Bootstrap Core CSS -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     {% block stylesheets %}{% endblock %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -35,23 +39,36 @@
     <script src="{{ asset("public/js/jquery.js") }}"></script>
 
     <script>
-        var btnCookie = $('.cookies a');
-        btnCookie.on('click', clicBtnCookie);
-        function clicBtnCookie(e) {
-            e.preventDefault();
-            $.ajax({
-                method: 'POST',
-                url: 'http://localhost/symfony/web/app_dev.php/disclaimer-cookies',
-                data: 'disclaimer=1', // disclaimer = avertissement
-                dataType: 'json',
-                success: onSuccess
-            })
-            $('.cookies').fadeOut("slow");
-        }
+        $(document).ready(function() {
+            var btnCookie = $('.cookies a');
+            btnCookie.on('click', clicBtnCookie);
+            function clicBtnCookie(e) {
+                e.preventDefault();
+                $.ajax({
+                    method: 'POST',
+                    url: 'http://localhost/symfony/web/app_dev.php/disclaimer-cookies',
+                    data: 'disclaimer=1', // disclaimer = avertissement
+                    dataType: 'json',
+                    success: onSuccess
+                })
+                $('.cookies').fadeOut("slow");
+            }
 
-        function onSuccess(data) {
-            console.log(data);
-        }
+            function onSuccess() {
+                console.log($('#schbox').val());
+            }
+
+            $('#schbox').autocomplete( function(){
+                    $.ajax({
+                        method: 'POST',
+                        url: 'http://localhost/symfony/web/app_dev.php/search',
+                        data: 'search='+$('#schbox').val(),
+                        dataType: 'json',
+                        product: onSuccess
+                    })
+            })
+
+        });
 
 
 

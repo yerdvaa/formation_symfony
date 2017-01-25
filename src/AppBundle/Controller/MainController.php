@@ -47,7 +47,35 @@ class MainController extends Controller
             ]);
     }
 
+    /**
+     * @Route("/search", name="search")
+     */
+    public function searchAction(Request $request)
+    {
+        $search = $request->get('search');
+        //die(dump($search));
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository("adminBundle:Product")->searchProduct($search);
 
+        return $this->render('Public/Main/Search.html.twig',
+            [
+                "product" => $product,
+            ]);
+    }
 
+    /**
+     * @Route("/autocomplete", name="autocomplete")
+     */
+    public function autocompleteAction(Request $request)
+    {
+        $search = $request->get('search');
+        //die(dump($search));
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository("adminBundle:Product")->searchProduct($search);
+
+        return new JsonResponse([
+            "product" => $product,
+        ]);
+    }
 
 }

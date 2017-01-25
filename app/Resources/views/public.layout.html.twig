@@ -1,5 +1,11 @@
 {% extends "public.base.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
+{% endblock %}
+
 {% block body %}
 
     {{ dump(app.session.get('order')) }}
@@ -68,13 +74,23 @@
                 <div class="list-group">
                     <a href="{{ path("categories", {sort:"ASC"}) }}">{{ list_categories()|raw }}</a>
                 </div>
+
+                <div class="form-group">
+                    <form action ="{{ url('search') }}">
+                        <div class="input-group input-group-sm icon-addon addon-sm">
+                            <input placeholder="Rechercher" name="search" id="schbox" class="form-control input-sm" type="text">
+                            <i class="icon icon-search"></i>
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-inverse">Rechercher</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
             </div>
 
-    {% block content %}
-    {% endblock %}
 
-    </div>
-
+        {% block content %}{% endblock %}
+        </div>
     </div>
     <div class="container">
 

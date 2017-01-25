@@ -1,0 +1,31 @@
+{% extends "public.layout.html.twig" %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        <!-- Custom CSS -->
+        <link href="{{ asset("public/css/shop-homepage.css") }}" rel="stylesheet">
+    {% endblock %}
+
+    {% block content %}
+        <div class="row">
+        <div class="col-md-6">
+            <div class="thumbnail">
+
+        {% if product is defined %}
+            {% for search in product %}
+
+            <img class="img-responsive" style="width: 80px" src="{{ asset("upload/" ~ search.image) }}" alt="">
+            <div class="caption-full">
+                <h4 class="pull-right">{{ search.price }} €</h4>
+                <h4><a href="#">{{ search.titleFR }}</a>
+                </h4>
+                <p><strong>{{ search.marque.title }}</strong></p>
+
+                <p>{{ search.descriptionFR }}</p>
+            </div>
+            {% endfor %}
+        {% endif %}
+            </div>
+        </div>
+        </div>
+    {% endblock %}

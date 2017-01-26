@@ -1,0 +1,26 @@
+{% extends "layout.html.twig" %}
+
+{% block ariane %}
+    <li class="active">Contact</li>
+{% endblock %}
+
+{% block content %}
+    <div class="box box-info">
+    <div class="box-body">
+        <table class="table table-striped">
+            <tr>
+                <th>Ip</th>
+                <th>Date</th>
+            </tr>
+            {% for line in file %}
+                {% set data = line | split(';') %}
+                <tr>
+                    <td>{{ data[0] }}</td>
+                    <td>{{ data[1] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </div>
+
+{% endblock %}

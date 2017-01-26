@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Event\VisitContactEvent;
+use AppBundle\Event\VisitEvents;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,19 +22,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/contact", name="contact_old")
+     * @Route("/contact_old", name="contact_old")
      */
 
     public function contactAction(Request $request)
     {
-        $firstName = 'Audrey';
-        $lastName = 'Serin';
 
-        return $this->render('default_old/contact.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
-            "firstName" => $firstName,
-            "lastName" => $lastName
-        ]);
+        return $this->render('Default_old/contact.html.twig');
     }
 
     /**

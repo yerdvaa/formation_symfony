@@ -9,6 +9,7 @@
 namespace AppBundle\Service;
 
 
+use AppBundle\Entity\Orders;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -28,8 +29,7 @@ class OrderService
 
     public function createOrder($nameSession)
     {
-        if(!$this->session->has($nameSession))
-        {
+        if (!$this->session->has($nameSession)) {
             $this->session->set($nameSession, []);
         }
     }
@@ -40,13 +40,10 @@ class OrderService
         $panier = $this->session->get('order');
         $qte = $this->request->get('qte');
 
-        if(array_key_exists($id, $panier))
-        {
+        if (array_key_exists($id, $panier)) {
             $panier[$id] += $qte;
-        }
-        else
-        {
-            $panier[$id]= $qte;
+        } else {
+            $panier[$id] = $qte;
         }
 
         $this->session->set('order', $panier);
@@ -58,17 +55,17 @@ class OrderService
         $em = $this->doctrine->getManager();
         $total = 0;
         $product = [];
-        foreach ($panier as $key => $val) {
-            $product[$key] = $em->getRepository("adminBundle:Product")->find($key);
-            $product[$key]->qte = $val;
-            $total += ($product[$key]->qte) * ($product[$key]->getPrice());
+        if (!empty($panier)) {
+            foreach ($panier as $key => $val) {
+                $product[$key] = $em->getRepository("adminBundle:Product")->find($key);
+                $product[$key]->qte = $val;
+                $total += ($product[$key]->qte) * ($product[$key]->getPrice());
+            }
         }
-
         return [
             'total' => $total,
             'product' => $product
         ];
-
     }
 
     public function updateOrder($id)
@@ -89,4 +86,6 @@ class OrderService
         unset($panier[$id]);
         $this->session->set('order', $panier);
     }
+
+
 }

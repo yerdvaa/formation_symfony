@@ -2,6 +2,8 @@
 
 namespace adminBundle\Controller;
 
+use AppBundle\Event\VisitContactEvent;
+use AppBundle\Event\VisitEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -37,6 +39,17 @@ class DefaultController extends Controller
 
     public function contactAction(Request $request)
     {
+        //event
+        $eventDispatcher = $this->get('event_dispatcher');
+
+        $event = new VisitContactEvent();
+        $event->setIp($request->getClientIp());
+
+        $eventDispatcher->dispatch(VisitEvents::CONTACT, $event);
+
+
+
+        //form
         $formContact = $this->createFormBuilder()
             ->add('firstname', TextType::class, [
                 'constraints' =>
@@ -122,8 +135,23 @@ class DefaultController extends Controller
 
         }
 
-        return $this->render('Default/contact.html.twig', ["formContact" => $formContact->createView()]);
+        return $this->render('Default/contact.html.twig', ["formContact" => $formContact->createView(),
+
+        ]);
     }
+
+    /**
+     * @Route("ContactEvent", name="ContactEvent")
+     */
+    public function contactEventAction()
+    {
+        $fileCSV = file('../var/logs/contactFormlogs.csv');
+
+        return $this-> render('Event/ContactEvent.html.twig', [
+           'file' => $fileCSV,
+        ]);
+    }
+
 
     /**
      * @Route("/feedback", name="feedback")

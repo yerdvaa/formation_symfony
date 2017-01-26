@@ -1,0 +1,43 @@
+{% extends "public.layout.html.twig" %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        <!-- Custom CSS -->
+        <link href="{{ asset("public/css/shop-homepage.css") }}" rel="stylesheet">
+    {% endblock %}
+
+    {% block content %}
+<div class="col-md-7">
+    <h3 class="text-center">Finalisation de votre commande:</h3>
+
+    <div class="box box-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Nom du Produit</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire</th>
+                <th>Prix Total</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% if products is defined %}
+
+                {% for product in products %}
+
+                        <tr>
+                            <td>{{ product.titleFR }}</td>
+                            <td>{{ product.qte }}</td>
+                            <td>{{ product.price }} € </td>
+                            <td>{{ product.qte * product.price }} €</td>
+                        </tr>
+                {% endfor %}
+            {% endif %}
+
+            </tbody>
+        </table>
+        <p>Total de la commande: <strong>{{ total }} €</strong></p>
+    </div>
+</div>
+    {% endblock %}

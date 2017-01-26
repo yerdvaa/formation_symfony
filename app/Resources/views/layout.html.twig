@@ -371,6 +371,11 @@
 
                         <span>Marques</span></a>
                 </li>
+                <li class="treeview {% if app.request.get('_route') == "ContactEvent" %} active {% endif %}">
+                    <a href="{{ path("ContactEvent") }}">
+                        <i class="fa fa-files-o"></i>
+                        <span>Ip user</span></a>
+                </li>
 
                     <a href="{{ path("categories") }}">
                         <span>{#{ render(controller("adminBundle:Categories:renderCategories")) } {{ ma_fonction() |raw}} #}</span></a>

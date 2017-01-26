@@ -23,6 +23,11 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    app.subscriber.visit.events:
+            class: AppBundle\Subscriber\VisitEventsSubscriber
+            tags:
+                - { name: kernel.event_subscriber }
+
     admin.subscriber.category.form:
         class: adminBundle\Subscriber\CategoryFormSubscriber
         tags:
